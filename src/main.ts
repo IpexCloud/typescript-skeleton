@@ -1,24 +1,9 @@
-const { createTerminus } = require('@godaddy/terminus');
-import {Response, Request} from "express"
-import {useExpressServer} from "routing-controllers"
-import express = require('express')
-const app: express.Application = express()
-const port = 8080
 import * as http from 'http'
+import createExpressApp from './server'
 
-useExpressServer(app, {
-    defaults: {
-        nullResultCode: 404,
-        undefinedResultCode: 204,
-    },
-    cors: {
-        origin: [`http://localhost:${port}`]
-    },
-    // routePrefix: "/api", //
-    controllers: [__dirname + "/interfaces/rest/controllers/**/*.+(js|ts)"]
-})
-
-const server = http.createServer(app);
+const port = 8080
+const { createTerminus } = require('@godaddy/terminus');
+const server = http.createServer(createExpressApp(port));
 
 createTerminus(server, {
     onShutdown: () => {
