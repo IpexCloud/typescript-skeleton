@@ -6,7 +6,7 @@ const port = 8080
 // define a route handler for the default home page
 app.get( "/", (_: Request, res: Response) => {
     res.set('Content-Type', 'text/html')
-    res.send(Buffer.from('<p>hello world!/p>'))
+    res.send(Buffer.from('<p>hello world!</p>'))
 } )
 
 // start the express server
