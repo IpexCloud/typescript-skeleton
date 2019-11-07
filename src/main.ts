@@ -1,13 +1,20 @@
 import {Response, Request} from "express"
-import express = require('express');
+import {useExpressServer} from "routing-controllers"
+import express = require('express')
 const app: express.Application = express()
 const port = 8080
 
-// define a route handler for the default home page
-app.get( "/", (_: Request, res: Response) => {
-    res.set('Content-Type', 'text/html')
-    res.send(Buffer.from('<p>hello world!</p>'))
-} )
+useExpressServer(app, {
+    defaults: {
+        nullResultCode: 404,
+        undefinedResultCode: 204,
+    },
+    cors: {
+        origin: [`http://localhost:${port}`]
+    },
+    // routePrefix: "/api", //
+    controllers: [__dirname + "/controller/**/*.+(js|ts)"]
+})
 
 // start the express server
 app.listen( port, () => {
