@@ -13,7 +13,7 @@ useExpressServer(app, {
         origin: [`http://localhost:${port}`]
     },
     // routePrefix: "/api", //
-    controllers: [__dirname + "/controller/**/*.+(js|ts)"]
+    controllers: [__dirname + "/interfaces/rest/controllers/**/*.+(js|ts)"]
 })
 
 // start the express server
