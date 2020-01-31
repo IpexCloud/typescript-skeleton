@@ -1,11 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": ".",
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "build",
+    "sourceMap": true,
     "removeComments": true
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
