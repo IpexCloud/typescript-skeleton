@@ -2,8 +2,10 @@ import { useExpressServer, getMetadataArgsStorage, Action } from 'routing-contro
 import { routingControllersToSpec } from 'routing-controllers-openapi'
 import { getFromContainer, MetadataStorage } from 'class-validator'
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
-import { serve, setup } from 'swagger-ui-express'
-import express = require('express')
+import * as swaggerUi from 'swagger-ui-express'
+import * as express from 'express'
+
+import { version } from '../../../package.json'
 
 const authorizationChecker = async (action: Action, roles: string[]): Promise<boolean> => {
   // here you can use request/response objects from action
@@ -16,25 +18,20 @@ const authorizationChecker = async (action: Action, roles: string[]): Promise<bo
   return true
 }
 
-export default function createExpressApp(port: number): express.Application {
-  const app: express.Application = express()
+export default function initREST(app: express.Application) {
   const routingControllersOptions = {
     defaults: {
       nullResultCode: 404,
       undefinedResultCode: 204
     },
-    cors: {
-      origin: [`http://localhost:${port}`]
-    },
+    cors: true,
     // routePrefix: "/api", //
-    controllers: [__dirname + '/interfaces/rest/controllers/**/*.+(js|ts)'],
+    controllers: [__dirname + '/controllers/**/*.+(js|ts)'],
     authorizationChecker
   }
   useExpressServer(app, routingControllersOptions)
-
   const metadatas = (getFromContainer(MetadataStorage) as any).validationMetadatas
   const schemas = validationMetadatasToSchemas(metadatas, {
-    // classTransformerMetadataStorage: defaultMetadataStorage,
     refPointerPrefix: '#/components/schemas/'
   })
   const storage = getMetadataArgsStorage()
@@ -50,11 +47,10 @@ export default function createExpressApp(port: number): express.Application {
     },
     info: {
       description: 'Generated with `routing-controllers-openapi`',
-      title: 'Node-Backend-Boilerplate API',
-      version: '1.0.0'
+      title: 'Typescript skeleton',
+      version
     }
   })
-  app.use('/documentation', serve, setup(spec))
 
-  return app
+  app.use('/documentation', swaggerUi.serve, swaggerUi.setup(spec))
 }

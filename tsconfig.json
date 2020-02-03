@@ -13,7 +13,8 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["node_modules", "build"]

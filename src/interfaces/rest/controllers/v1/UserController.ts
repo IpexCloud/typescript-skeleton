@@ -5,28 +5,13 @@ import {
   Body,
   Get,
   Post,
-  Put,
   Delete,
   QueryParam
 } from 'routing-controllers'
 import { ResponseSchema, OpenAPI } from 'routing-controllers-openapi'
-import { IsNumber, IsString } from 'class-validator'
-import { Type } from 'class-transformer'
 
-class User {
-  @IsNumber()
-  id: number
-  @IsString()
-  name: string
-}
-class Users {
-  @Type(() => User)
-  users: User[]
-  @IsNumber()
-  page: number
-  @IsNumber()
-  pageSize: number
-}
+import { getUsers, getUser, createUser, deleteUser } from '../../../../services/users'
+import { UserApiEntity, UsersApiEntity, UsersOperation } from '../../entities/v1/UserApiEntity'
 
 @Authorized()
 @OpenAPI({
@@ -35,45 +20,44 @@ class Users {
 @JsonController()
 export class UserController {
   @Get('/users')
-  @ResponseSchema(Users)
+  @ResponseSchema(UsersApiEntity)
   @OpenAPI({
     summary: 'Get list of users',
     description: 'Get list of users with pagination'
   })
-  getAll(@QueryParam('page') page: number, @QueryParam('pageSize') pageSize: number) {
+  async getAll(@QueryParam('page') page: number, @QueryParam('pageSize') pageSize: number) {
+    const users = await getUsers()
     return {
-      users: [
-        {
-          id: 1,
-          name: 'John Doe'
-        }
-      ],
+      users,
       page,
       pageSize
     }
   }
 
   @Get('/users/:id')
-  @ResponseSchema(User)
-  getOne(@Param('id') id: number) {
-    return {
-      id,
-      name: 'John Doe'
-    }
+  @ResponseSchema(UserApiEntity)
+  async getOne(@Param('id') id: number) {
+    const user = await getUser(id)
+    return user
   }
 
   @Post('/users')
-  post(@Body() user: User) {
-    return `User ${user.name} saved`
-  }
-
-  @Put('/users/:id')
-  put(@Param('id') id: number, @Body() user: User) {
-    return `Updating user ${id} to ${user.id}`
+  @ResponseSchema(UsersOperation)
+  async post(@Body() user: UserApiEntity) {
+    await createUser(user)
+    return {
+      message: `User successfully saved`,
+      userId: user.userId
+    }
   }
 
   @Delete('/users/:id')
-  remove(@Param('id') id: number) {
-    return `User with id ${id} removed`
+  @ResponseSchema(UsersOperation)
+  async remove(@Param('id') id: number) {
+    await deleteUser(id)
+    return {
+      message: `User successfully deleted`,
+      userId: id
+    }
   }
 }

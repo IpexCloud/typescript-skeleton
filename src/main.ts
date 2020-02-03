@@ -1,9 +1,14 @@
+import * as express from 'express'
 import * as http from 'http'
-import createExpressApp from './server'
 import { createTerminus } from '@godaddy/terminus'
+import { createConnection } from 'typeorm'
 
-const port = 8000
-const server = http.createServer(createExpressApp(port))
+import { PORT, DATABASE, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USER } from '../config'
+import initREST from './interfaces/rest'
+
+const app: express.Application = express()
+initREST(app)
+const server = http.createServer(app)
 
 createTerminus(server, {
   onShutdown: () => {
@@ -14,8 +19,16 @@ createTerminus(server, {
   }
 })
 
-// start the express server
-server.listen(port, () => {
+server.listen(PORT, async () => {
+  await createConnection({
+    type: 'mysql',
+    host: DATABASE_HOST,
+    port: 3306,
+    username: DATABASE_USER,
+    password: DATABASE_PASSWORD,
+    database: DATABASE,
+    entities: [__dirname + '/model/typeorm/entities/**.ts']
+  })
   // tslint:disable-next-line:no-console
-  console.log(`server started at http://localhost:${port}`)
+  console.log(`Server started  on port ${PORT}`)
 })

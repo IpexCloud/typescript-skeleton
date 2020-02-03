@@ -15,7 +15,8 @@
             "internalConsoleOptions": "openOnSessionStart",
             "outFiles": [
                 "${workspaceFolder}/build/**/*.js"
-            ]
+            ],
+            "envFile": "${workspaceFolder}/env/.env"
         }
     ]
 }

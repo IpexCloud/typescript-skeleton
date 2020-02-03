@@ -1,79 +1,49 @@
-[![TypeScript version][ts-badge]][typescript-37]
-[![Node.js version][nodejs-badge]][nodejs]
-[![APLv2][license-badge]][LICENSE]
+# typescript-skeleton
 
+TODO:
 
-# node-typescript-boilerplate
+- [x] typescript compiler
+- [x] Swagger, class-validator
+- [x] authorization
+- [x] typeORM
+- [x] REST interface
+- [ ] GraphQL interface
+- [ ] logger
+- [ ] mocha 
 
-Minimalistic boilerplate to jump-start a [Node.js][nodejs] project in [TypeScript][typescript] [3.7][typescript-37].
+## [TypeORM](https://typeorm.io/#/connection)
 
-What's included:
+### Migrations
 
-+ [TypeScript][typescript] [3.7][typescript-37],
-+ [TSLint][tslint] with [Microsoft rules][tslint-microsoft-contrib],
-+ [Jest][jest] unit testing and code coverage,
-+ Type definitions for Node.js and Jest,
-+ [Prettier][prettier] to enforce a consistent code style,
-+ [NPM scripts for common operations](#available-scripts),
-+ a simple example of TypeScript code and unit test,
-+ .editorconfig for consistent file format.
+## [Create new migration](https://typeorm.io/#/migrations/creating-a-new-migration)
 
-## Quick start
-
-This project is intended to be used with the latest Active LTS release of [Node.js][nodejs]. 
-
-To start, just click the **[Use template][repo-template-action]** link (or the green button), 
-
-or clone the repository with following commands:
-
+1. create ormconfig.json file with credentials to database
+2. 
 ```sh
-git clone https://github.com/jsynowiec/node-typescript-boilerplate
-cd node-typescript-boilerplate
-npm install
+npx typeorm migration:create -n {name-for-migration}
+```
+3. add your SQL commands to up and down functions (e.g. https://typeorm.io/#/migrations/creating-a-new-migration)
+
+## [Run and revert migrations](https://typeorm.io/#/migrations/running-and-reverting-migrations)
+1. 
+```sh
+npm i typeorm ts-node
+```
+2. add this script to package.json
+```javascript
+"scripts": {
+    "typeorm": "ts-node -r ./tsconfig.release.json ./node_modules/typeorm/cli.js"  
+  }
+```
+3. Run migrations
+```sh
+npm run typeorm migration:run
 ```
 
-or download and unzip current `master` branch:
 
+or revert
 ```sh
-wget https://github.com/jsynowiec/node-typescript-boilerplate/archive/master.zip -O node-typescript-boilerplate
-unzip node-typescript-boilerplate.zip && rm node-typescript-boilerplate.zip
+npm run typeorm migration:revert
 ```
 
-Now start adding your code in the `src` and unit tests in the `__tests__` directories. Have fun and build amazing things 🚀
 
-### Unit tests in JavaScript
-
-Writing unit tests in TypeScript can sometimes be troublesome and confusing. Especially when mocking dependencies and using spies.
-
-This is **optional**, but if you want to learn how to write JavaScript tests for TypeScript modules, read the [corresponding wiki page][wiki-js-tests].
-
-## Available scripts
-
-+ `clean` - remove coverage data, Jest cache and transpiled files,
-+ `build` - transpile TypeScript to ES6,
-+ `build:watch` - interactive watch mode to automatically transpile source files,
-+ `lint` - lint source files and tests,
-+ `test` - run tests,
-+ `test:watch` - interactive watch mode to automatically re-run tests
-
-## License
-Licensed under the APLv2. See the [LICENSE](https://github.com/jsynowiec/node-typescript-boilerplate/blob/master/LICENSE) file for details.
-
-[ts-badge]: https://img.shields.io/badge/TypeScript-3.7-blue.svg
-[nodejs-badge]: https://img.shields.io/badge/Node.js->=%2012.13-blue.svg
-[nodejs]: https://nodejs.org/dist/latest-v12.x/docs/api/
-[travis-badge]: https://travis-ci.org/jsynowiec/node-typescript-boilerplate.svg?branch=master
-[travis-ci]: https://travis-ci.org/jsynowiec/node-typescript-boilerplate
-[typescript]: https://www.typescriptlang.org/
-[typescript-37]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html
-[license-badge]: https://img.shields.io/badge/license-APLv2-blue.svg
-[license]: https://github.com/jsynowiec/node-typescript-boilerplate/blob/master/LICENSE
-
-[donate-badge]: https://img.shields.io/badge/☕-buy%20me%20a%20coffee-46b798.svg
-[donate]: https://paypal.me/jaqb/5eur
-
-[jest]: https://facebook.github.io/jest/
-[tslint]: https://palantir.github.io/tslint/
-[tslint-microsoft-contrib]: https://github.com/Microsoft/tslint-microsoft-contrib
-[wiki-js-tests]: https://github.com/jsynowiec/node-typescript-boilerplate/wiki/Unit-tests-in-plain-JavaScript
-[prettier]: https://prettier.io

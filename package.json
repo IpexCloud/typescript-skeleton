@@ -34,7 +34,8 @@
     "build:watch": "nodemon --watch src --exec \"ts-node\"  src/main.ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "start": "node build/main.js"
+    "start": "node build/main.js",
+    "typeorm": "ts-node -r ./tsconfig.release.json ./node_modules/typeorm/cli.js"  
   },
   "author": "Jakub Synowiec <github@jakubsynowiec.info>",
   "license": "Apache-2.0",
@@ -48,6 +49,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "multer": "^1.4.2",
+    "mysql": "^2.18.1",
     "routing-controllers": "^0.8.0",
     "routing-controllers-openapi": "^1.8.0",
     "swagger-ui-express": "^4.1.3",
