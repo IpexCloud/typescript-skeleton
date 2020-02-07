@@ -16,6 +16,6 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "__tests__/**/*"],
+  "include": ["src/**/*", "config"],
   "exclude": ["node_modules", "build"]
 }

@@ -1,17 +1,8 @@
-import {
-  Authorized,
-  JsonController,
-  Param,
-  Body,
-  Get,
-  Post,
-  Delete,
-  QueryParam
-} from 'routing-controllers'
+import { Authorized, JsonController, Params, Body, Get, Post, Delete } from 'routing-controllers'
 import { ResponseSchema, OpenAPI } from 'routing-controllers-openapi'
 
 import { getUsers, getUser, createUser, deleteUser } from '../../../../services/users'
-import { UserApiEntity, UsersApiEntity, UsersOperation } from '../../entities/v1/UserApiEntity'
+import { UserApiEntity, UserParamsEntity, UsersOperationEntity } from '../../entities/v1/UserApiEntity'
 
 @Authorized()
 @OpenAPI({
@@ -20,30 +11,26 @@ import { UserApiEntity, UsersApiEntity, UsersOperation } from '../../entities/v1
 @JsonController()
 export class UserController {
   @Get('/users')
-  @ResponseSchema(UsersApiEntity)
+  @ResponseSchema(UserApiEntity, { isArray: true })
   @OpenAPI({
     summary: 'Get list of users',
     description: 'Get list of users with pagination'
   })
-  async getAll(@QueryParam('page') page: number, @QueryParam('pageSize') pageSize: number) {
+  async getAll(): Promise<UserApiEntity[]> {
     const users = await getUsers()
-    return {
-      users,
-      page,
-      pageSize
-    }
+    return users
   }
 
   @Get('/users/:id')
   @ResponseSchema(UserApiEntity)
-  async getOne(@Param('id') id: number) {
+  async getOne(@Params() { id }: UserParamsEntity): Promise<UserApiEntity> {
     const user = await getUser(id)
     return user
   }
 
   @Post('/users')
-  @ResponseSchema(UsersOperation)
-  async post(@Body() user: UserApiEntity) {
+  @ResponseSchema(UsersOperationEntity)
+  async post(@Body() user: UserApiEntity): Promise<UsersOperationEntity> {
     await createUser(user)
     return {
       message: `User successfully saved`,
@@ -52,8 +39,8 @@ export class UserController {
   }
 
   @Delete('/users/:id')
-  @ResponseSchema(UsersOperation)
-  async remove(@Param('id') id: number) {
+  @ResponseSchema(UsersOperationEntity)
+  async remove(@Params() { id }: UserParamsEntity): Promise<UsersOperationEntity> {
     await deleteUser(id)
     return {
       message: `User successfully deleted`,

@@ -1,6 +1,4 @@
 import { IsNumber, IsString } from 'class-validator'
-import { Type } from 'class-transformer'
-
 export class UserApiEntity {
   @IsNumber()
   userId: number
@@ -13,18 +11,15 @@ export class UserApiEntity {
   @IsString()
   city: string
 }
-export class UsersApiEntity {
-  @Type(() => UserApiEntity)
-  users: UserApiEntity[]
-  @IsNumber()
-  page: number
-  @IsNumber()
-  pageSize: number
-}
 
-export class UsersOperation {
+export class UsersOperationEntity {
   @IsString()
   message: string
   @IsNumber()
   userId: number
+}
+
+export class UserParamsEntity {
+  @IsNumber()
+  id: number
 }
