@@ -4,6 +4,7 @@ import { getFromContainer, MetadataStorage } from 'class-validator'
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
+import { requestLogger, setLoggerSilent, errorLogger } from '../../util/logger/logger'
 
 import { version } from '../../../package.json'
 
@@ -19,6 +20,8 @@ const authorizationChecker = async (action: Action, roles: string[]): Promise<bo
 }
 
 export default function initREST(app: express.Application) {
+  setLoggerSilent(false)
+  app.use(requestLogger)
   const routingControllersOptions = {
     defaults: {
       nullResultCode: 404,
@@ -53,4 +56,5 @@ export default function initREST(app: express.Application) {
   })
 
   app.use('/documentation', swaggerUi.serve, swaggerUi.setup(spec))
+  app.use(errorLogger)
 }

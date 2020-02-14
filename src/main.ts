@@ -2,6 +2,7 @@ import 'reflect-metadata'
 import * as express from 'express'
 import * as http from 'http'
 import { createTerminus } from '@godaddy/terminus'
+import {logger} from './util/logger/logger'
 
 import { PORT } from '../config'
 import { initDbConnection, Connections } from '../config/mysql'
@@ -26,6 +27,6 @@ import initREST from './interfaces/rest'
 
   server.listen(PORT, () => {
     // tslint:disable-next-line:no-console
-    console.log(`Server started on port ${PORT}`)
+    logger.info(`Server running on: http://localhost:${PORT}`)
   })
 })()
