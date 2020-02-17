@@ -19,7 +19,8 @@
     "Promise": true,
     "Array": true,
     "global": true,
-    "Map": true
+    "Map": true,
+    "Buffer": true
   },
   "rules": {
     "no-console": 0,
@@ -38,7 +39,9 @@
     "object-curly-spacing": ["error", "always"],
     "allowMultiplePropertiesPerLine": 0,
     "prettier/prettier": ["error"],
-    "no-mixed-spaces-and-tabs": 2
+    "no-mixed-spaces-and-tabs": 2,
+    "sort-keys": ["error", "asc", {"caseSensitive": true, "natural": true, "minKeys": 2}],
+    "sort-vars": 2
   },
   "extends": [
     "prettier",

@@ -5,6 +5,10 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
+import requestLogger from '../../utils/logger/requestLogger'
+import errorLogger from '../../utils/logger/errorLogger'
+import { setLoggerSilent } from '../../utils/logger/logger'
+import CorrelationIdMiddleware from './middlewares/correlationIdMiddleware'
 import { version } from '../../../package.json'
 
 const authorizationChecker = async (action: Action, roles: string[]): Promise<boolean> => {
@@ -19,17 +23,24 @@ const authorizationChecker = async (action: Action, roles: string[]): Promise<bo
 }
 
 export default function initREST(app: express.Application) {
+  // Enable logs
+  setLoggerSilent(false)
+  // Register request logging middleware
+  app.use(requestLogger)
+
   const routingControllersOptions = {
+    authorizationChecker,
+    controllers: [__dirname + '/controllers/**/*.+(js|ts)'],
+    cors: true,
     defaults: {
       nullResultCode: 404,
       undefinedResultCode: 204
     },
-    cors: true,
-    // routePrefix: "/api", //
-    controllers: [__dirname + '/controllers/**/*.+(js|ts)'],
-    authorizationChecker
+    middlewares: [CorrelationIdMiddleware]
   }
   useExpressServer(app, routingControllersOptions)
+
+  // Generate documentation
   const metadatas = (getFromContainer(MetadataStorage) as any).validationMetadatas
   const schemas = validationMetadatasToSchemas(metadatas, {
     refPointerPrefix: '#/components/schemas/'
@@ -51,6 +62,8 @@ export default function initREST(app: express.Application) {
       version
     }
   })
-
+  // Use route for documentation
   app.use('/documentation', swaggerUi.serve, swaggerUi.setup(spec))
+  // Register middleware for error logging
+  app.use(errorLogger)
 }
