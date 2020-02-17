@@ -11,11 +11,11 @@ const getSettings = (name: Connections): object => {
   switch (name) {
     case Connections.database1: {
       return {
-        host: DATABASE_HOST,
-        username: DATABASE_USER,
-        password: DATABASE_PASSWORD,
         database: DATABASE,
-        entities: [resolve(__dirname, '../src/model/typeorm/entities/**')]
+        entities: [resolve(__dirname, '../src/model/typeorm/entities/**')],
+        host: DATABASE_HOST,
+        password: DATABASE_PASSWORD,
+        username: DATABASE_USER
       }
     }
   }
@@ -25,8 +25,8 @@ export async function initDbConnection(name: Connections, options: object = {}):
   await createConnections([
     {
       name,
-      type: 'mysql',
       port: 3306,
+      type: 'mysql',
       ...getSettings(name),
       ...options
     }

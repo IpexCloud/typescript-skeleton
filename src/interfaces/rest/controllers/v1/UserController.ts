@@ -13,8 +13,8 @@ export class UserController {
   @Get('/users')
   @ResponseSchema(UserApiEntity, { isArray: true })
   @OpenAPI({
-    summary: 'Get list of users',
-    description: 'Get list of users with pagination'
+    description: 'Get list of users',
+    summary: 'Get list of users'
   })
   async getAll(): Promise<UserApiEntity[]> {
     const users = await getUsers()

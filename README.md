@@ -5,11 +5,13 @@ TODO:
 - [x] typescript compiler
 - [x] Swagger, class-validator
 - [x] authorization
-- [x] typeORM
+- [x] TypeORM
 - [x] REST interface
+- [x] logger
+- [x] request and error stdout logging
+- [x] /alive and /health routes predefined
 - [ ] GraphQL interface
-- [ ] logger
-- [ ] mocha 
+- [ ] run tests
 
 ## [TypeORM](https://typeorm.io/#/connection)
 

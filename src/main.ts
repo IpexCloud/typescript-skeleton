@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import * as express from 'express'
 import * as http from 'http'
 import { createTerminus } from '@godaddy/terminus'
-import {logger} from './util/logger/logger'
+import { logger } from './utils/logger/logger'
 
 import { PORT } from '../config'
 import { initDbConnection, Connections } from '../config/mysql'
@@ -18,7 +18,7 @@ import initREST from './interfaces/rest'
   const server = http.createServer(app)
   createTerminus(server, {
     onShutdown: () => {
-      console.log('server is starting cleanup')
+      logger.info('Server is starting cleanup')
       return Promise.all([
         // your clean logic, like closing database connections
       ])
@@ -26,7 +26,6 @@ import initREST from './interfaces/rest'
   })
 
   server.listen(PORT, () => {
-    // tslint:disable-next-line:no-console
     logger.info(`Server running on: http://localhost:${PORT}`)
   })
 })()
