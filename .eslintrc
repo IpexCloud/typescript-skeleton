@@ -40,7 +40,6 @@
     "allowMultiplePropertiesPerLine": 0,
     "prettier/prettier": ["error"],
     "no-mixed-spaces-and-tabs": 2,
-    "sort-keys": ["error", "asc", {"caseSensitive": true, "natural": true, "minKeys": 2}],
     "sort-vars": 2
   },
   "extends": [
