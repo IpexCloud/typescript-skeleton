@@ -18,9 +18,10 @@ export async function findOne(userId: number): Promise<User | undefined> {
 }
 
 export async function create(user: User): Promise<User> {
-  return getConnection(Connections.database1)
+  const newUser = await getConnection(Connections.database1)
     .getRepository(User)
     .save(user)
+  return newUser
 }
 
 export async function remove(userId: number): Promise<DeleteResult> {
