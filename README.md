@@ -2,16 +2,18 @@
 
 TODO:
 
-- [x] typescript compiler
-- [x] Swagger, class-validator
+- [x] TypeScript compiler + ESLint
+- [x] routing-controllers
+- [x] Swagger route documentation, class-validator
 - [x] authorization
 - [x] TypeORM
 - [x] REST interface
 - [x] logger
-- [x] request and error stdout logging
+- [x] request/response and error stdout logging
 - [x] /alive and /health routes predefined
+- [x] Jest framework for testing
 - [ ] GraphQL interface
-- [ ] run tests
+- [ ] GraphQL subscription
 
 ## [TypeORM](https://typeorm.io/#/connection)
 
@@ -19,33 +21,43 @@ TODO:
 
 ## [Create new migration](https://typeorm.io/#/migrations/creating-a-new-migration)
 
-1. create ormconfig.json file with credentials to database
-2. 
+1. update ormconfig.json file with credentials to database
+2. run command
 ```sh
 npx typeorm migration:create -n {name-for-migration}
 ```
 3. add your SQL commands to up and down functions (e.g. https://typeorm.io/#/migrations/creating-a-new-migration)
 
 ## [Run and revert migrations](https://typeorm.io/#/migrations/running-and-reverting-migrations)
-1. 
-```sh
-npm i typeorm ts-node
-```
-2. add this script to package.json
+1. add this script to package.json
 ```javascript
 "scripts": {
     "typeorm": "ts-node -r ./tsconfig.release.json ./node_modules/typeorm/cli.js"  
   }
 ```
-3. Run migrations
+2. Run migrations or revert
 ```sh
 npm run typeorm migration:run
 ```
 
 
-or revert
+
 ```sh
 npm run typeorm migration:revert
 ```
 
+## [Test](https://jestjs.io/)
+We are using [Jest](https://jestjs.io/) framework. Test files must contain "test" word e.g. "users.test.ts"
+
+Run test with command:
+```sh
+npm run test
+```
+
+or automatically run test after file change
+```sh
+npm run test:watch
+```
+
+or use VSCODE debug configuration "Debug test"
 
