@@ -12,8 +12,9 @@ TODO:
 - [x] request/response and error stdout logging
 - [x] /alive and /health routes predefined
 - [x] Jest framework for testing
-- [ ] GraphQL interface
+- [x] GraphQL interface
 - [ ] GraphQL subscription
+- [ ] GraphQL error logs
 
 ## [TypeORM](https://typeorm.io/#/connection)
 

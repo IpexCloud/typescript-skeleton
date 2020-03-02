@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "build",
+    "sourceMap": true,
+    "removeComments": true,
+    //
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "importHelpers": true,

@@ -2,7 +2,7 @@ import { Authorized, JsonController, Params, Body, Get, Post, Delete } from 'rou
 import { ResponseSchema, OpenAPI } from 'routing-controllers-openapi'
 
 import { getUsers, getUser, createUser, deleteUser } from '../../../../services/users'
-import { UserApiEntity, UserParamsEntity, UsersOperationEntity } from '../../entities/v1/UserApiEntity'
+import { UserApiEntity, UserParamsEntity, UsersOperationEntity } from '../../../../entities/v1/UserApiEntity'
 
 @Authorized()
 @OpenAPI({
@@ -30,7 +30,7 @@ export class UserController {
 
   @Post('/users')
   @ResponseSchema(UsersOperationEntity)
-  async post(@Body() user: UserApiEntity): Promise<UsersOperationEntity> {
+  async create(@Body() user: UserApiEntity): Promise<UsersOperationEntity> {
     await createUser(user)
     return {
       message: `User successfully saved`,

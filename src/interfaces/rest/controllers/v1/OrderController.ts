@@ -1,7 +1,7 @@
 import { Authorized, JsonController, Params, Get } from 'routing-controllers'
 import { OpenAPI } from 'routing-controllers-openapi'
 
-import { UserParamsEntity } from '../../entities/v1/UserApiEntity'
+import { UserParamsEntity } from '../../../../entities/v1/UserApiEntity'
 import { getUserOrders } from '../../../../services/orders'
 
 @Authorized()

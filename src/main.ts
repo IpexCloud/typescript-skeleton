@@ -7,6 +7,9 @@ import { logger } from './utils/logger/logger'
 import { PORT } from '../config'
 import { initDbConnection, Connections } from '../config/mysql'
 import initREST from './interfaces/rest'
+import initGraphQL from './interfaces/graphql'
+import requestLogger from './utils/logger/requestLogger'
+import errorLogger from './utils/logger/errorLogger'
 
 // Start server, init db connections and interfaces
 ;(async function() {
@@ -14,7 +17,14 @@ import initREST from './interfaces/rest'
 
   await initDbConnection(Connections.database1)
 
+  // Register request logging middleware
+  app.use(requestLogger)
+  // Register middleware for error logging
+  app.use(errorLogger)
+
+  await initGraphQL(app)
   initREST(app)
+
   const server = http.createServer(app)
   createTerminus(server, {
     onShutdown: () => {
