@@ -6,7 +6,6 @@
     "outDir": "build",
     "sourceMap": true,
     "removeComments": true,
-    //
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "importHelpers": true,
@@ -21,8 +20,19 @@
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "resolveJsonModule": true
-  },
-  "include": ["src/**/*", "config"],
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "transform": "@zerollup/ts-transform-paths",
+        "exclude": ["*"]
+      }
+    ],   
+    "paths": {
+        "@/*": ["./src/*"],
+        "~/*": ["./*"]
+      }
+    },
+  "include": ["src/**/*", "config/**/*", "tests/**/*"],
   "exclude": ["node_modules", "build"]
 }

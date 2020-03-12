@@ -1,7 +1,7 @@
 import { NotFoundError } from 'routing-controllers'
 
-import User from '../model/typeorm/entities/UserEntity'
-import * as usersRepository from '../respositories/database1/users'
+import User from '@/model/typeorm/entities/UserEntity'
+import * as usersRepository from '@/respositories/database1/users'
 
 export async function getUsers(): Promise<User[]> {
   const users = await usersRepository.find()

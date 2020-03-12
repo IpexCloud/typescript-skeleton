@@ -3,8 +3,8 @@ import { Request } from 'express'
 import { logger } from 'express-winston'
 import { hostname } from 'os'
 
-import { version } from '../../../package.json'
-import { ENVIRONMENT_NAME } from '../../../config'
+import { version } from '~/package.json'
+import { ENVIRONMENT_NAME } from '~/config'
 
 interface LogFormat {
   '@timestamp': string

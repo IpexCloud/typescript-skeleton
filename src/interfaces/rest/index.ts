@@ -5,9 +5,9 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
-import { setLoggerSilent } from '../../utils/logger/logger'
+import { setLoggerSilent } from '@/utils/logger/logger'
 import CorrelationIdMiddleware from './middlewares/correlationIdMiddleware'
-import { version } from '../../../package.json'
+import { version } from '~/package.json'
 
 const authorizationChecker = async (action: Action, roles: string[]): Promise<boolean> => {
   // here you can use request/response objects from action

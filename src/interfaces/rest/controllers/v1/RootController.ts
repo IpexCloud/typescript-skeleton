@@ -1,9 +1,9 @@
 import { JsonController, Get } from 'routing-controllers'
 import { OpenAPI } from 'routing-controllers-openapi'
 
-import { version } from '../../../../../package.json'
-import { checkMaintenance, checkDatabaseConnection } from '../../../../utils/health'
-import { Connections } from '../../../../../config/mysql'
+import { version } from '~/package.json'
+import { Connections } from '~/config/mysql'
+import { checkMaintenance, checkDatabaseConnection } from '@/utils/health'
 
 @OpenAPI({
   tags: ['/']

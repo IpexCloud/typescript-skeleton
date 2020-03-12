@@ -1,7 +1,7 @@
 import { getConnection, DeleteResult } from 'typeorm'
 
-import User from '../../model/typeorm/entities/UserEntity'
-import { Connections } from '../../../config/mysql'
+import User from '@/model/typeorm/entities/UserEntity'
+import { Connections } from '~/config/mysql'
 
 export async function find(): Promise<User[]> {
   const users = await getConnection(Connections.database1)
