@@ -1,8 +1,8 @@
 import { Authorized, JsonController, Params, Body, Get, Post, Delete } from 'routing-controllers'
 import { ResponseSchema, OpenAPI } from 'routing-controllers-openapi'
 
-import { getUsers, getUser, createUser, deleteUser } from '../../../../services/users'
-import { UserApiEntity, UserParamsEntity, UsersOperationEntity } from '../../../../entities/v1/UserApiEntity'
+import { getUsers, getUser, createUser, deleteUser } from '@/services/users'
+import { UserApiEntity, UserParamsEntity, UsersOperationEntity } from '@/entities/v1/UserApiEntity'
 
 @Authorized()
 @OpenAPI({

@@ -1,6 +1,7 @@
 import { Authorized, Query, Mutation, Arg, Resolver } from 'type-graphql'
-import { UserApiEntity, UsersOperationEntity } from '../../../entities/v1/UserApiEntity'
-import { getUsers, createUser } from '../../../services/users'
+
+import { UserApiEntity, UsersOperationEntity } from '@/entities/v1/UserApiEntity'
+import { getUsers, createUser } from '@/services/users'
 
 @Resolver()
 export class UserResolver {

@@ -2,7 +2,7 @@ import * as express from 'express'
 import { AuthChecker, buildSchema } from 'type-graphql'
 import * as expressGraphql from 'express-graphql'
 import graphqlPlaygroundMiddlewareExpress from 'graphql-playground-middleware-express'
-import { GRAPHQL_ENDPOINT, GRAPHQL_PLAYGROUND_ENDPOINT } from '../../../config'
+import { GRAPHQL_ENDPOINT, GRAPHQL_PLAYGROUND_ENDPOINT } from '~/config'
 
 const authChecker: AuthChecker<any> = (resolverData, roles) => {
   // resolverData includes properties: root, args, context, info

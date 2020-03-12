@@ -3,8 +3,8 @@ import { Response, Request } from 'express'
 import { errorLogger, ErrorLoggerOptions } from 'express-winston'
 import { hostname } from 'os'
 
-import { version } from '../../../package.json'
-import { ENVIRONMENT_NAME } from '../../../config'
+import { version } from '~/package.json'
+import { ENVIRONMENT_NAME } from '~/config'
 
 interface ErrorLogFormat {
   '@timestamp': string
