@@ -1,4 +1,4 @@
-import { NotFoundError } from 'routing-controllers'
+import { NotFoundError } from '@/entities/errors'
 
 import User from '@/model/typeorm/entities/UserEntity'
 import * as usersRepository from '@/respositories/database1/users'
@@ -10,7 +10,7 @@ export async function getUsers(): Promise<User[]> {
 
 export async function getUser(userId: number): Promise<User> {
   const user = await usersRepository.findOne(userId)
-  if (!user) throw new NotFoundError('User not found')
+  if (!user) throw new NotFoundError(`User with id ${userId} not found`)
   return user
 }
 
@@ -20,5 +20,5 @@ export async function createUser(user: User): Promise<User> {
 
 export async function deleteUser(userId: number): Promise<void> {
   const { affected } = await usersRepository.remove(userId)
-  if (!affected) throw new NotFoundError('User not found')
+  if (!affected) throw new NotFoundError()
 }

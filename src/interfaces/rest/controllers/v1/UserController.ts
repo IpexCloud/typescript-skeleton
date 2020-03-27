@@ -6,7 +6,7 @@ import { UserApiEntity, UserParamsEntity, UsersOperationEntity } from '@/entitie
 
 @Authorized()
 @OpenAPI({
-  security: [{ bearerAuth: [] }]
+  security: [{ bearerAuth: [], basicAuth: [] }]
 })
 @JsonController()
 export class UserController {

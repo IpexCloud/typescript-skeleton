@@ -6,8 +6,11 @@ import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
 import { setLoggerSilent } from '@/utils/logger/logger'
+import restLogger from '@/utils/logger/restLogger'
 import CorrelationIdMiddleware from './middlewares/correlationIdMiddleware'
+import ErrorHandlerMiddleware from './middlewares/errorHandlerMiddleware'
 import { version } from '~/package.json'
+import { UnauthorizedError } from '@/entities/errors'
 
 const authorizationChecker = async (action: Action, roles: string[]): Promise<boolean> => {
   // here you can use request/response objects from action
@@ -16,25 +19,30 @@ const authorizationChecker = async (action: Action, roles: string[]): Promise<bo
   // checker must return either boolean (true or false)
   // either promise that resolves a boolean value
   const token = action.request.headers.authorization || ''
-  if (!token || roles.includes('unknownRole')) return false
+  if (!token || roles.includes('unknownRole')) throw new UnauthorizedError()
+
   return true
 }
 
 export default function initREST(app: express.Application) {
   // Enable logs
   setLoggerSilent(false)
+  // Register request logging middleware
+  app.use(restLogger)
 
   const routingControllersOptions = {
     authorizationChecker,
     controllers: [__dirname + '/controllers/**/*.+(js|ts)'],
+    defaultErrorHandler: false,
     cors: true,
     defaults: {
       nullResultCode: 404,
       undefinedResultCode: 204
     },
-    middlewares: [CorrelationIdMiddleware]
+    middlewares: [CorrelationIdMiddleware, ErrorHandlerMiddleware]
   }
   useExpressServer(app, routingControllersOptions)
+  // app.use(errorLogger)
 
   // Generate documentation
   const metadatas = (getFromContainer(MetadataStorage) as any).validationMetadatas
@@ -48,6 +56,10 @@ export default function initREST(app: express.Application) {
       securitySchemes: {
         bearerAuth: {
           scheme: 'bearer',
+          type: 'http'
+        },
+        basicAuth: {
+          scheme: 'basic',
           type: 'http'
         }
       }
