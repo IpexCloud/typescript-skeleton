@@ -2,7 +2,10 @@ import * as express from 'express'
 import { AuthChecker, buildSchema } from 'type-graphql'
 import * as expressGraphql from 'express-graphql'
 import graphqlPlaygroundMiddlewareExpress from 'graphql-playground-middleware-express'
+
 import { GRAPHQL_ENDPOINT, GRAPHQL_PLAYGROUND_ENDPOINT } from '~/config'
+import graphqlLogger from '@/utils/logger/graphqlLogger'
+import { UnauthorizedError } from '@/entities/errors'
 
 const authChecker: AuthChecker<any> = (resolverData, roles) => {
   // resolverData includes properties: root, args, context, info
@@ -12,6 +15,9 @@ const authChecker: AuthChecker<any> = (resolverData, roles) => {
 }
 
 export default async function initGraphQL(app: express.Application): Promise<express.Application> {
+  // Register request logging middleware
+  app.use(graphqlLogger)
+
   const schema = await buildSchema({
     authChecker,
     resolvers: [__dirname + '/resolvers/**/*.+(js|ts)']
@@ -23,7 +29,7 @@ export default async function initGraphQL(app: express.Application): Promise<exp
       schema,
       context: (): object | null => {
         const token = request.headers.authorization
-        if (!token) return null
+        if (!token) throw new UnauthorizedError()
         return {
           user: 'John Doe',
           customer: '12345',

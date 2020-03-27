@@ -1,14 +1,14 @@
 # typescript-skeleton
 
 ## Packages
-[routing-controllers](https://github.com/typestack/routing-controllers)
-[type-graphql](https://github.com/typestack/routing-controllers)
-[class-validator](https://github.com/typestack/class-validator#validation-decorators)
-[typeorm - connection](https://typeorm.io/#/connection)
-[typeorm - entities](https://typeorm.io/#/entities)
-[typeorm - data-mapper vs active-record](https://typeorm.io/#/active-record-data-mapper)
-[winston](https://www.npmjs.com/package/winston)
-[jest](https://jestjs.io/)
+- [routing-controllers](https://github.com/typestack/routing-controllers)
+- [type-graphql](https://typegraphql.com/)
+- [class-validator](https://github.com/typestack/class-validator#validation-decorators)
+- [typeorm - connection](https://typeorm.io/#/connection)
+- [typeorm - entities](https://typeorm.io/#/entities)
+- [typeorm - data-mapper vs active-record](https://typeorm.io/#/active-record-data-mapper)
+- [winston](https://www.npmjs.com/package/winston)
+- [jest](https://jestjs.io/)
 
 TODO:
 

@@ -5,6 +5,7 @@ import { hostname } from 'os'
 
 import { version } from '~/package.json'
 import { ENVIRONMENT_NAME } from '~/config'
+import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from '@/utils/auth'
 
 interface LogFormat {
   '@timestamp': string
@@ -21,18 +22,25 @@ interface LogFormat {
   responseTime: number
   statusCode: number
   method: string
-  query: object
   authorization: string | null
-  requestPayload?: object | null
   responsePayload?: object | null
+  gqlOperation: string
+  gqlRawQuery: string
+  gqlVariables: object
+  qqlName: string
 }
 
 const requestFormat = format.printf(data => {
   const { meta, level, timestamp } = data
   const auth = meta.req.headers.authorization || null
-  // Get user from basic auth
-  const basicAuth = auth && auth.split(' ')[1] && Buffer.from(auth.split(' ')[1], 'base64').toString()
-  const userId = (basicAuth && basicAuth.split(':')[0]) || null
+  let userId: LogFormat['user'] = null
+  if (getAuthType(auth) === 'basicAuth') {
+    const credentials = getBasicAuthMeta(auth)
+    userId = credentials ? credentials.user : null
+  } else if (getAuthType(auth) === 'bearerToken') {
+    const tokenPayload = getBearerAuthMeta(auth)
+    userId = tokenPayload ? (tokenPayload.sub ? tokenPayload.sub : null) : null
+  }
 
   let log: LogFormat = {
     '@timestamp': timestamp,
@@ -44,20 +52,23 @@ const requestFormat = format.printf(data => {
     instanceId: hostname(),
     method: meta.req.method,
     path: meta.req.url, // TODO: get pure route without parameters e.g. /users/{userId}
-    query: meta.req.query,
     responseTime: meta.responseTime,
     route: meta.req.url,
     severity: level,
     source: ENVIRONMENT_NAME || 'typescript-skeleton',
     statusCode: meta.res.statusCode,
-    user: userId
+    user: userId,
+    gqlOperation: meta.req.body.query.split(' ')[0],
+    gqlRawQuery: meta.req.body.query,
+    gqlVariables: meta.req.body.variables,
+    qqlName: meta.req.body.operationName // TODO: parse raw graphql query and add '#' between operations
   }
 
-  if (!(meta.res.statusCode >= 200 && meta.res.statusCode < 300)) {
+  if (meta.res.body.errors) {
     log = {
       ...log,
-      requestPayload: meta.req.body ? meta.req.body : null,
-      responsePayload: null
+      responsePayload: meta.res.body.errors,
+      severity: 'error'
     }
   }
 
@@ -73,13 +84,12 @@ const loggerOptions: LoggerOptions = {
 }
 
 export default logger({
-  bodyBlacklist: ['password'], // omit this keys from logged body
   ignoreRoute: (req: Request) => {
-    if (req.method === 'OPTIONS') return true
-    if (req.url.startsWith('/documentation')) return true
-    return false
+    if (req.url === '/graphql' && req.body.operationName === 'IntrospectionQuery') return true
+    if (req.url === '/graphql') return false // log only /graphql route
+
+    return true
   },
-  ignoredRoutes: ['/health', '/alive', '/'],
   meta: true,
   requestWhitelist: ['headers', 'query', 'body', 'method', 'url'],
   responseWhitelist: ['body', 'statusCode'],

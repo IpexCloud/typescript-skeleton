@@ -1,16 +1,15 @@
 import 'reflect-metadata'
 import * as express from 'express'
 import * as http from 'http'
+import * as bodyParser from 'body-parser'
 import { createTerminus } from '@godaddy/terminus'
 import { getConnection } from 'typeorm'
-import { logger } from './utils/logger/logger'
 
+import { logger } from './utils/logger/logger'
 import { PORT } from '~/config'
 import { initDbConnection, Connections } from '~/config/mysql'
 import initREST from './interfaces/rest'
 import initGraphQL from './interfaces/graphql'
-import requestLogger from './utils/logger/requestLogger'
-import errorLogger from './utils/logger/errorLogger'
 
 // Start server, init db connections and interfaces
 ;(async function() {
@@ -18,10 +17,7 @@ import errorLogger from './utils/logger/errorLogger'
 
   await initDbConnection(Connections.database1)
 
-  // Register request logging middleware
-  app.use(requestLogger)
-  // Register middleware for error logging
-  app.use(errorLogger)
+  app.use(bodyParser.json())
 
   initREST(app)
   await initGraphQL(app)
