@@ -6,7 +6,8 @@ enum AuthTypes {
   unknown = 'unknown'
 }
 
-export const getAuthType = (auth: string): AuthTypes => {
+export const getAuthType = (auth: string | undefined | null): AuthTypes => {
+  if (!auth) return AuthTypes.unknown
   if (auth.startsWith('Basic') && auth.split(' ')) {
     const basicAuth = auth.split(' ')
     const [type, credentials] = basicAuth
