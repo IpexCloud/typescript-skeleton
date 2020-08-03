@@ -12,7 +12,7 @@ import ErrorHandlerMiddleware from './middlewares/errorHandlerMiddleware'
 import { version } from '~/package.json'
 import { UnauthorizedError } from '@/entities/errors'
 
-const authorizationChecker = async (action: Action, roles: string[]): Promise<boolean> => {
+function authorizationChecker(action: Action, roles: string[]): boolean {
   // here you can use request/response objects from action
   // also if decorator defines roles it needs to access the action
   // you can use them to provide granular access check

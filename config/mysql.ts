@@ -7,7 +7,7 @@ export enum Connections {
   database1 = 'database1'
 }
 
-const getSettings = (name: Connections): object => {
+function getSettings(name: Connections): object {
   switch (name) {
     case Connections.database1: {
       return {

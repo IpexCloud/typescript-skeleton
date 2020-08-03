@@ -11,9 +11,7 @@ import { checkMaintenance, checkDatabaseConnection } from '@/utils/health'
 @JsonController()
 export class RootController {
   @Get('/alive')
-  @OpenAPI({
-    summary: 'Server alive status'
-  })
+  @OpenAPI({ summary: 'Server alive status' })
   alive() {
     return {
       status: 'OK',
@@ -23,9 +21,7 @@ export class RootController {
   }
 
   @Get('/health')
-  @OpenAPI({
-    summary: 'Server health status'
-  })
+  @OpenAPI({ summary: 'Server health status' })
   async health() {
     return [await checkMaintenance(), await checkDatabaseConnection(Connections.database1)]
   }
