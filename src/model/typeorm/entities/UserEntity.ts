@@ -2,7 +2,7 @@ import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm'
 import Order from './OrderEntity'
 
 @Entity({ name: 'users' }) // same as table name
-export default class User {
+class User {
   @PrimaryColumn()
   userId: number
 
@@ -24,3 +24,5 @@ export default class User {
   )
   orders?: Order[]
 }
+
+export default User

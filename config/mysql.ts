@@ -3,11 +3,11 @@ import { createConnections } from 'typeorm'
 
 import { DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE } from '.'
 
-export enum Connections {
+enum Connections {
   database1 = 'database1'
 }
 
-function getSettings(name: Connections): object {
+const getSettings = (name: Connections) => {
   switch (name) {
     case Connections.database1: {
       return {
@@ -21,8 +21,8 @@ function getSettings(name: Connections): object {
   }
 }
 
-export async function initDbConnection(name: Connections, options: object = {}): Promise<void> {
-  await createConnections([
+const initDbConnection = (name: Connections, options: object = {}) => {
+  return createConnections([
     {
       name,
       type: 'mysql',
@@ -32,3 +32,5 @@ export async function initDbConnection(name: Connections, options: object = {}):
     }
   ])
 }
+
+export { initDbConnection, Connections }

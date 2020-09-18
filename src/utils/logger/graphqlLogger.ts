@@ -85,8 +85,12 @@ const loggerOptions: LoggerOptions = {
 
 export default logger({
   ignoreRoute: (req: Request) => {
-    if (req.url === '/graphql' && req.body.operationName === 'IntrospectionQuery') return true
-    if (req.url === '/graphql') return false // log only /graphql route
+    if (req.url === '/graphql' && req.body.operationName === 'IntrospectionQuery') {
+      return true
+    }
+    if (req.url === '/graphql') {
+      return false
+    } // log only /graphql route
 
     return true
   },

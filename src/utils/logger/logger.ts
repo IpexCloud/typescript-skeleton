@@ -5,7 +5,7 @@ const messageFormat = format.printf(data => {
   return `${timestamp} - ${message}`
 })
 
-export const logger = createLogger({
+const logger = createLogger({
   transports: [
     new transports.Console({
       format: format.combine(format.splat(), format.timestamp(), messageFormat)
@@ -13,8 +13,10 @@ export const logger = createLogger({
   ]
 })
 
-export const setLoggerSilent = (silent: boolean) => {
+const setLoggerSilent = (silent: boolean) => {
   logger.transports.forEach(transport => {
     transport.silent = silent
   })
 }
+
+export { logger, setLoggerSilent }

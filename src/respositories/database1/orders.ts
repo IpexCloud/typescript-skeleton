@@ -3,7 +3,7 @@ import { getConnection } from 'typeorm'
 import Order from '@/model/typeorm/entities/OrderEntity'
 import { Connections } from '~/config/mysql'
 
-export async function findUserOrders(userId: number): Promise<Order[]> {
+const findUserOrders = async (userId: number) => {
   const orders = await getConnection(Connections.database1)
     .getRepository(Order)
     .find({
@@ -12,3 +12,5 @@ export async function findUserOrders(userId: number): Promise<Order[]> {
     })
   return orders
 }
+
+export { findUserOrders }

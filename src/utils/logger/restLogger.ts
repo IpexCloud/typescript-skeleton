@@ -83,8 +83,12 @@ const loggerOptions: LoggerOptions = {
 export default logger({
   bodyBlacklist: ['password'], // omit this keys from logged body
   ignoreRoute: (req: Request) => {
-    if (req.method === 'OPTIONS') return true
-    if (req.url.startsWith('/documentation')) return true
+    if (req.method === 'OPTIONS') {
+      return true
+    }
+    if (req.url.startsWith('/documentation')) {
+      return true
+    }
     return false
   },
   ignoredRoutes: ['/health', '/alive', '/', GRAPHQL_ENDPOINT, GRAPHQL_PLAYGROUND_ENDPOINT],

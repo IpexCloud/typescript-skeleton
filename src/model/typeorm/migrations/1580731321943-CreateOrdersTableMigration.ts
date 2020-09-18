@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
-export class CreateOrdersTableMigration1580731321943 implements MigrationInterface {
+class CreateOrdersTableMigration1580731321943 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.query(`CREATE TABLE orders (
         orderId int NOT NULL AUTO_INCREMENT,
@@ -15,3 +15,5 @@ export class CreateOrdersTableMigration1580731321943 implements MigrationInterfa
     await queryRunner.query(`DROP TABLE IF EXISTS orders`)
   }
 }
+
+export { CreateOrdersTableMigration1580731321943 }

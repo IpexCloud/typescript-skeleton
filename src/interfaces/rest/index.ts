@@ -1,6 +1,6 @@
 import { useExpressServer, getMetadataArgsStorage, Action } from 'routing-controllers'
 import { routingControllersToSpec } from 'routing-controllers-openapi'
-import { getFromContainer, MetadataStorage } from 'class-validator'
+import { defaultMetadataStorage } from 'class-transformer/storage'
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
@@ -12,19 +12,21 @@ import ErrorHandlerMiddleware from './middlewares/errorHandlerMiddleware'
 import { version } from '~/package.json'
 import { UnauthorizedError } from '@/entities/errors'
 
-function authorizationChecker(action: Action, roles: string[]): boolean {
+const authorizationChecker = (action: Action, roles: string[]): boolean => {
   // here you can use request/response objects from action
   // also if decorator defines roles it needs to access the action
   // you can use them to provide granular access check
   // checker must return either boolean (true or false)
   // either promise that resolves a boolean value
   const token = action.request.headers.authorization || ''
-  if (!token || roles.includes('unknownRole')) throw new UnauthorizedError()
+  if (!token || roles.includes('unknownRole')) {
+    throw new UnauthorizedError()
+  }
 
   return true
 }
 
-export default function initREST(app: express.Application) {
+const initREST = (app: express.Application) => {
   // Enable logs
   setLoggerSilent(false)
   // Register request logging middleware
@@ -45,8 +47,8 @@ export default function initREST(app: express.Application) {
   // app.use(errorLogger)
 
   // Generate documentation
-  const metadatas = (getFromContainer(MetadataStorage) as any).validationMetadatas
-  const schemas = validationMetadatasToSchemas(metadatas, {
+  const schemas = validationMetadatasToSchemas({
+    classTransformerMetadataStorage: defaultMetadataStorage,
     refPointerPrefix: '#/components/schemas/'
   })
   const storage = getMetadataArgsStorage()
@@ -70,6 +72,9 @@ export default function initREST(app: express.Application) {
       version
     }
   })
+
   // Use route for documentation
   app.use('/documentation', swaggerUi.serve, swaggerUi.setup(spec))
 }
+
+export default initREST

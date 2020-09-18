@@ -17,7 +17,7 @@ const DEFAULT_RESPONSE = {
   statusCode: 200
 }
 
-export async function checkMaintenance(): Promise<ResponseFormat> {
+const checkMaintenance = async (): Promise<ResponseFormat> => {
   const start = Date.now()
   const response = { ...DEFAULT_RESPONSE, name: 'maintenance' }
   if (existsSync('maintenance')) {
@@ -29,7 +29,7 @@ export async function checkMaintenance(): Promise<ResponseFormat> {
   return response
 }
 
-export async function checkDatabaseConnection(name: Connections): Promise<ResponseFormat> {
+const checkDatabaseConnection = async (name: Connections): Promise<ResponseFormat> => {
   const start = Date.now()
   const response = { ...DEFAULT_RESPONSE, name }
   try {
@@ -43,3 +43,5 @@ export async function checkDatabaseConnection(name: Connections): Promise<Respon
   }
   return response
 }
+
+export { checkMaintenance, checkDatabaseConnection }

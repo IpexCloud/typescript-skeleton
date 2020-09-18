@@ -2,7 +2,7 @@ import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm'
 import User from './UserEntity'
 
 @Entity({ name: 'orders' }) // same as table name
-export default class Order {
+class Order {
   @PrimaryColumn()
   orderId: number
 
@@ -16,3 +16,5 @@ export default class Order {
   @JoinColumn({ name: 'userId' })
   user: User
 }
+
+export default Order

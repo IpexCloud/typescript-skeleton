@@ -1,4 +1,4 @@
-export class NotFoundError extends Error {
+class NotFoundError extends Error {
   message: string
   name: string
   constructor(message?: string) {
@@ -8,7 +8,7 @@ export class NotFoundError extends Error {
   }
 }
 
-export class UnauthorizedError extends Error {
+class UnauthorizedError extends Error {
   message: string
   name: string
 
@@ -19,7 +19,7 @@ export class UnauthorizedError extends Error {
   }
 }
 
-export class BadRequestError extends Error {
+class BadRequestError extends Error {
   message: string
   name: string
 
@@ -29,3 +29,5 @@ export class BadRequestError extends Error {
     this.name = 'BadRequestError'
   }
 }
+
+export { NotFoundError, UnauthorizedError, BadRequestError }

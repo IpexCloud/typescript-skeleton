@@ -25,7 +25,7 @@ const logger = createLogger({
   ]
 })
 
-export default function logRestError(error: any, request: any) {
+const logRestError = (error: any, request: any) => {
   const errorLog: ErrorLogFormat = {
     '@timestamp': new Date().toISOString(),
     '@version': version,
@@ -44,3 +44,5 @@ export default function logRestError(error: any, request: any) {
     message: JSON.stringify(errorLog)
   })
 }
+
+export default logRestError

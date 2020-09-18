@@ -4,7 +4,7 @@ import { UserApiEntity, UsersOperationEntity } from '@/entities/v1/UserApiEntity
 import { getUsers, createUser } from '@/services/users'
 
 @Resolver()
-export class UserResolver {
+class UserResolver {
   @Authorized()
   @Query(() => [UserApiEntity])
   async getUsers(): Promise<UserApiEntity[]> {
@@ -22,3 +22,5 @@ export class UserResolver {
     }
   }
 }
+
+export { UserResolver }

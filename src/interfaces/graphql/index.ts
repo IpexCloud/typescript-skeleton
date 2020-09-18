@@ -14,7 +14,7 @@ const authChecker: AuthChecker<any> = (resolverData, roles) => {
   return !!ctnx && hasAccess
 }
 
-export default async function initGraphQL(app: express.Application): Promise<express.Application> {
+const initGraphQL = async (app: express.Application) => {
   // Register request logging middleware
   app.use(graphqlLogger)
 
@@ -29,7 +29,9 @@ export default async function initGraphQL(app: express.Application): Promise<exp
       schema,
       context: (): object | null => {
         const token = request.headers.authorization
-        if (!token) throw new UnauthorizedError()
+        if (!token) {
+          throw new UnauthorizedError()
+        }
         return {
           user: 'John Doe',
           customer: '12345',
@@ -48,3 +50,5 @@ export default async function initGraphQL(app: express.Application): Promise<exp
 
   return app
 }
+
+export default initGraphQL

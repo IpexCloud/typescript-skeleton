@@ -4,7 +4,7 @@ import { Field, InputType, ObjectType } from 'type-graphql'
 
 @InputType('UserInput')
 @ObjectType('User')
-export class UserApiEntity {
+class UserApiEntity {
   @IsNumber()
   @Field()
   @JSONSchema({ description: 'User id', example: 1 })
@@ -28,7 +28,7 @@ export class UserApiEntity {
 }
 
 @ObjectType()
-export class UsersOperationEntity {
+class UsersOperationEntity {
   @IsString()
   @Field()
   @JSONSchema({ description: 'Operation result' })
@@ -41,8 +41,10 @@ export class UsersOperationEntity {
 }
 
 @InputType()
-export class UserParamsEntity {
+class UserParamsEntity {
   @Field()
   @IsNumber()
   id: number
 }
+
+export { UsersOperationEntity, UserParamsEntity, UserApiEntity }

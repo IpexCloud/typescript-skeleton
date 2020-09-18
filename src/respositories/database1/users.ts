@@ -1,31 +1,33 @@
-import { getConnection, DeleteResult } from 'typeorm'
+import { getConnection } from 'typeorm'
 
 import User from '@/model/typeorm/entities/UserEntity'
 import { Connections } from '~/config/mysql'
 
-export async function find(): Promise<User[]> {
+const find = async () => {
   const users = await getConnection(Connections.database1)
     .getRepository(User)
     .find()
   return users
 }
 
-export async function findOne(userId: number): Promise<User | undefined> {
+const findOne = async (userId: number) => {
   const user = await getConnection(Connections.database1)
     .getRepository(User)
     .findOne({ userId })
   return user
 }
 
-export async function create(user: User): Promise<User> {
+const create = async (user: User) => {
   const newUser = await getConnection(Connections.database1)
     .getRepository(User)
     .save(user)
   return newUser
 }
 
-export async function remove(userId: number): Promise<DeleteResult> {
+const remove = (userId: number) => {
   return getConnection(Connections.database1)
     .getRepository(User)
     .delete({ userId })
 }
+
+export { find, findOne, create, remove }
