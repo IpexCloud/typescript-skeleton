@@ -2,7 +2,7 @@ import { JsonController, Get } from 'routing-controllers'
 import { OpenAPI } from 'routing-controllers-openapi'
 
 import { version } from '~/package.json'
-import { Connections } from '~/config/mysql'
+import { Connections } from '~/config/databases'
 import { checkMaintenance, checkDatabaseConnection } from '@/utils/health'
 
 @OpenAPI({

@@ -7,7 +7,7 @@ import { getConnection } from 'typeorm'
 
 import { logger } from './utils/logger/logger'
 import { PORT } from '~/config'
-import { initDbConnection, Connections } from '~/config/mysql'
+import { initDbConnection, Connections } from '~/config/databases'
 import initREST from './interfaces/rest'
 import initGraphQL from './interfaces/graphql'
 

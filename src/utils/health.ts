@@ -1,7 +1,7 @@
 import { existsSync } from 'fs'
 import { getConnection } from 'typeorm'
 
-import { Connections } from '~/config/mysql'
+import { Connections } from '~/config/databases'
 
 interface ResponseFormat {
   duration: number

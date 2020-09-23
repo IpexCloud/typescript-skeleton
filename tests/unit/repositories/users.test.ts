@@ -1,6 +1,6 @@
 import { getConnection } from 'typeorm'
 
-import { initDbConnection, Connections } from '~/config/mysql'
+import { initDbConnection, Connections } from '~/config/databases'
 import * as usersRepository from '@/respositories/database1/users'
 
 describe('Users repository', () => {

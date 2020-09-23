@@ -1,7 +1,7 @@
 import { getConnection } from 'typeorm'
 
 import Order from '@/model/typeorm/entities/OrderEntity'
-import { Connections } from '~/config/mysql'
+import { Connections } from '~/config/databases'
 
 const findUserOrders = async (userId: number) => {
   const orders = await getConnection(Connections.database1)

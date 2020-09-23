@@ -22,17 +22,18 @@ interface LogFormat {
   responseTime: number
   statusCode: number
   method: string
-  query: object
+  query: string
   authorization: string | null
-  requestPayload?: object | null
-  responsePayload?: object | null
-  metadata?: object | null
+  requestPayload?: string | null
+  responsePayload?: string | null
+  metadata: string | null
 }
 
 const requestFormat = format.printf(data => {
   const { meta, level, timestamp } = data
   const auth = meta.req.headers.authorization || null
   let userId: LogFormat['user'] = null
+
   if (getAuthType(auth) === 'basicAuth') {
     const credentials = getBasicAuthMeta(auth)
     userId = credentials ? credentials.user : null
@@ -51,21 +52,21 @@ const requestFormat = format.printf(data => {
     instanceId: hostname(),
     method: meta.req.method,
     path: meta.req.url, // TODO: get pure route without parameters e.g. /users/{userId}
-    query: meta.req.query,
+    query: JSON.stringify(meta.req.query),
     responseTime: meta.responseTime,
     route: meta.req.url,
     severity: level,
     source: ENVIRONMENT_NAME || 'typescript-skeleton',
     statusCode: meta.res.statusCode,
     user: userId,
-    metadata: typeof meta.req.body === 'object' ? meta.req.body : { msg: meta.req.body }
+    metadata: typeof meta.req.body === 'object' ? JSON.stringify(meta.req.body) : JSON.stringify({ msg: meta.req.body })
   }
 
   if (!(meta.res.statusCode >= 200 && meta.res.statusCode < 300)) {
     log = {
       ...log,
-      requestPayload: meta.req.body || null,
-      responsePayload: meta.res.body
+      requestPayload: JSON.stringify(meta.req.body) || null,
+      responsePayload: JSON.stringify(meta.res.body)
     }
   }
 

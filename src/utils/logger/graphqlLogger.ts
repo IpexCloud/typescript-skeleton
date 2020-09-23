@@ -23,10 +23,10 @@ interface LogFormat {
   statusCode: number
   method: string
   authorization: string | null
-  responsePayload?: object | null
+  responsePayload?: string | null
   gqlOperation: string
   gqlRawQuery: string
-  gqlVariables: object
+  gqlVariables: string
   qqlName: string
 }
 
@@ -34,6 +34,7 @@ const requestFormat = format.printf(data => {
   const { meta, level, timestamp } = data
   const auth = meta.req.headers.authorization || null
   let userId: LogFormat['user'] = null
+
   if (getAuthType(auth) === 'basicAuth') {
     const credentials = getBasicAuthMeta(auth)
     userId = credentials ? credentials.user : null
@@ -60,14 +61,14 @@ const requestFormat = format.printf(data => {
     user: userId,
     gqlOperation: meta.req.body.query.split(' ')[0],
     gqlRawQuery: meta.req.body.query,
-    gqlVariables: meta.req.body.variables,
+    gqlVariables: JSON.stringify(meta.req.body.variables),
     qqlName: meta.req.body.operationName // TODO: parse raw graphql query and add '#' between operations
   }
 
   if (meta.res.body.errors) {
     log = {
       ...log,
-      responsePayload: meta.res.body.errors,
+      responsePayload: JSON.stringify(meta.res.body.errors),
       severity: 'error'
     }
   }
