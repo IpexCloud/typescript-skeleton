@@ -4,7 +4,7 @@ import { logger } from 'express-winston'
 import { hostname } from 'os'
 
 import { version } from '~/package.json'
-import { ENVIRONMENT_NAME, GRAPHQL_ENDPOINT, GRAPHQL_PLAYGROUND_ENDPOINT } from '~/config'
+import { ENVIRONMENT_NAME, GRAPHQL_ENDPOINT } from '~/config'
 import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from '@/utils/auth'
 
 interface LogFormat {
@@ -92,7 +92,7 @@ export default logger({
     }
     return false
   },
-  ignoredRoutes: ['/health', '/alive', '/', GRAPHQL_ENDPOINT, GRAPHQL_PLAYGROUND_ENDPOINT],
+  ignoredRoutes: ['/health', '/alive', '/', GRAPHQL_ENDPOINT],
   meta: true,
   requestWhitelist: ['headers', 'query', 'body', 'method', 'url'],
   responseWhitelist: ['body', 'statusCode'],

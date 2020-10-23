@@ -6,7 +6,6 @@ import { resolve } from 'path'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
-import { setLoggerSilent } from '@/utils/logger/logger'
 import restLogger from '@/utils/logger/restLogger'
 import CorrelationIdMiddleware from './middlewares/correlationIdMiddleware'
 import ErrorHandlerMiddleware from './middlewares/errorHandlerMiddleware'
@@ -28,9 +27,7 @@ const authorizationChecker = (action: Action, roles: string[]): boolean => {
 }
 
 const initREST = (app: express.Application) => {
-  // Enable logs
-  setLoggerSilent(false)
-  // Register request logging middleware
+  // Register logging middleware for REST
   app.use(restLogger)
 
   const routingControllersOptions = {

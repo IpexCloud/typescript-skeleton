@@ -40,6 +40,13 @@ class UsersOperationEntity {
   userId: number
 }
 
+@ObjectType()
+class NotificationEntity {
+  @IsString()
+  @Field()
+  message: string
+}
+
 @InputType()
 class UserParamsEntity {
   @Field()
@@ -47,4 +54,4 @@ class UserParamsEntity {
   id: number
 }
 
-export { UsersOperationEntity, UserParamsEntity, UserApiEntity }
+export { UsersOperationEntity, UserParamsEntity, UserApiEntity, NotificationEntity }

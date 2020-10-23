@@ -1,51 +1,69 @@
 import * as express from 'express'
 import { AuthChecker, buildSchema } from 'type-graphql'
-import * as expressGraphql from 'express-graphql'
-import graphqlPlaygroundMiddlewareExpress from 'graphql-playground-middleware-express'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
+import { ApolloServer, PubSub } from 'apollo-server-express'
+import { execute, subscribe } from 'graphql'
+import * as http from 'http'
 
-import { GRAPHQL_ENDPOINT, GRAPHQL_PLAYGROUND_ENDPOINT } from '~/config'
 import graphqlLogger from '@/utils/logger/graphqlLogger'
 import { UnauthorizedError } from '@/entities/errors'
 
+const pubSub = new PubSub()
+
 const authChecker: AuthChecker<any> = (resolverData, roles) => {
   // resolverData includes properties: root, args, context, info
-  const ctnx = resolverData.context()
-  const hasAccess = roles.length ? ctnx.includes(roles) : true
-  return !!ctnx && hasAccess
+  const ctx = resolverData.context
+  const hasAccess = roles.length ? ctx.includes(roles) : true
+  return !!ctx && hasAccess
 }
 
-const initGraphQL = async (app: express.Application) => {
-  // Register request logging middleware
+const initGraphQL = async (app: express.Application, server: http.Server) => {
+  // Register logging middleware for GraphQL
   app.use(graphqlLogger)
 
   const schema = await buildSchema({
     authChecker,
-    resolvers: [__dirname + '/resolvers/**/*.+(js|ts)']
+    resolvers: [__dirname + '/resolvers/**/*.+(js|ts)'],
+    pubSub
   })
 
-  app.use(
-    GRAPHQL_ENDPOINT,
-    expressGraphql(async request => ({
-      schema,
-      context: (): object | null => {
-        const token = request.headers.authorization
-        if (!token) {
-          throw new UnauthorizedError()
-        }
-        return {
-          user: 'John Doe',
+  const apolloServer = new ApolloServer({
+    schema,
+    playground: true,
+    subscriptions: {
+      path: '/'
+    },
+    context: ({ req }): object | null => {
+      // User metadata
+      const token = req.headers.authorization
+      if (!token) {
+        throw new UnauthorizedError()
+      }
+
+      const context = {
+        ...req,
+        user: {
+          name: 'John Doe',
           customer: '12345',
           roles: 'ADMIN'
         }
       }
-    }))
-  )
+      return context
+    }
+  })
 
-  app.get(
-    GRAPHQL_PLAYGROUND_ENDPOINT,
-    graphqlPlaygroundMiddlewareExpress({
-      endpoint: GRAPHQL_ENDPOINT
-    })
+  apolloServer.applyMiddleware({ app })
+
+  new SubscriptionServer(
+    {
+      execute,
+      subscribe,
+      schema
+    },
+    {
+      server,
+      path: '/'
+    }
   )
 
   return app

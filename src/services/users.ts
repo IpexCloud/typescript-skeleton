@@ -1,4 +1,4 @@
-import { NotFoundError } from '@/entities/errors'
+import { NotFoundError, ConflictError } from '@/entities/errors'
 
 import { UserEntity } from '@/model/typeorm//database1/entities'
 import * as usersRepository from '@/respositories/database1/users'
@@ -16,7 +16,12 @@ const getUser = async (userId: number) => {
   return user
 }
 
-const createUser = (user: UserEntity) => {
+const createUser = async (user: UserEntity) => {
+  const savedUser = await usersRepository.findOne(user.userId)
+
+  if (savedUser) {
+    throw new ConflictError(`User with id ${user.userId} already exists`)
+  }
   return usersRepository.create(user)
 }
 

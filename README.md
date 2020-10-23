@@ -23,8 +23,8 @@ TODO:
 - [x] /alive and /health routes predefined
 - [x] Jest framework for testing
 - [x] GraphQL interface
-- [ ] GraphQL subscription
-- [ ] GraphQL error logs
+- [x] GraphQL subscription
+- [x] GraphQL error logs
 
 ## [TypeORM](https://typeorm.io/#/connection)
 

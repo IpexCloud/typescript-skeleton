@@ -19,10 +19,10 @@ import initGraphQL from './interfaces/graphql'
 
   app.use(bodyParser.json())
 
-  initREST(app)
-  await initGraphQL(app)
-
   const server = http.createServer(app)
+  initREST(app)
+  await initGraphQL(app, server)
+
   createTerminus(server, {
     onShutdown: () => {
       logger.info('Server is starting cleanup')
@@ -33,7 +33,6 @@ import initGraphQL from './interfaces/graphql'
     }
   })
 
-  server.listen(PORT, () => {
-    logger.info(`Server running on: http://localhost:${PORT}`)
-  })
+  await server.listen(PORT)
+  logger.info(`Server running on: http://localhost:${PORT}`)
 })()

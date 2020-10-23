@@ -6,6 +6,7 @@ import { hostname } from 'os'
 import { version } from '~/package.json'
 import { ENVIRONMENT_NAME } from '~/config'
 import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from '@/utils/auth'
+import { getStatusCodeFromError } from '@/utils/logger/logger'
 
 interface LogFormat {
   '@timestamp': string
@@ -34,11 +35,12 @@ const requestFormat = format.printf(data => {
   const { meta, level, timestamp } = data
   const auth = meta.req.headers.authorization || null
   let userId: LogFormat['user'] = null
+  const authType = getAuthType(auth)
 
-  if (getAuthType(auth) === 'basicAuth') {
+  if (authType === 'basicAuth') {
     const credentials = getBasicAuthMeta(auth)
     userId = credentials ? credentials.user : null
-  } else if (getAuthType(auth) === 'bearerToken') {
+  } else if (authType === 'bearerToken') {
     const tokenPayload = getBearerAuthMeta(auth)
     userId = tokenPayload ? (tokenPayload.sub ? tokenPayload.sub : null) : null
   }
@@ -65,11 +67,12 @@ const requestFormat = format.printf(data => {
     qqlName: meta.req.body.operationName // TODO: parse raw graphql query and add '#' between operations
   }
 
-  if (meta.res.body.errors) {
+  if (meta.res.body.errors?.length) {
     log = {
       ...log,
       responsePayload: JSON.stringify(meta.res.body.errors),
-      severity: 'error'
+      severity: 'error',
+      statusCode: getStatusCodeFromError(meta.res.body.errors[0]?.extensions?.exception)
     }
   }
 
@@ -87,6 +90,9 @@ const loggerOptions: LoggerOptions = {
 export default logger({
   ignoreRoute: (req: Request) => {
     if (req.url === '/graphql' && req.body.operationName === 'IntrospectionQuery') {
+      return true
+    }
+    if (req.method === 'GET') {
       return true
     }
     if (req.url === '/graphql') {

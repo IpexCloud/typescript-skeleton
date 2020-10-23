@@ -16,7 +16,8 @@
             "outFiles": [
                 "${workspaceFolder}/build/**/*.js"
             ],
-            "envFile": "${workspaceFolder}/env/.env"
+            "envFile": "${workspaceFolder}/env/.env",
+            "outputCapture": "std"
         },
         {
             "type": "node",
@@ -39,6 +40,7 @@
                 "${workspaceRoot}/jest.config.js"          
               ],
             },
+            "outputCapture": "std",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "envFile": "${workspaceFolder}/env/.env"
