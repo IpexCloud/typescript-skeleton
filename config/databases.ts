@@ -17,7 +17,7 @@ const getSettings = (name: Connections): ConnectionOptions => {
         username: DATABASE_USER,
         password: DATABASE_PASSWORD,
         database: DATABASE,
-        entities: [resolve(__dirname, '../src/model/typeorm/entities/**')]
+        entities: [resolve(__dirname, `../src/model/typeorm/${Connections.database1}/entities/**`)]
       }
     }
   }

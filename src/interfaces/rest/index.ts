@@ -2,6 +2,7 @@ import { useExpressServer, getMetadataArgsStorage, Action } from 'routing-contro
 import { routingControllersToSpec } from 'routing-controllers-openapi'
 import { defaultMetadataStorage } from 'class-transformer/storage'
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
+import { resolve } from 'path'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
@@ -34,7 +35,7 @@ const initREST = (app: express.Application) => {
 
   const routingControllersOptions = {
     authorizationChecker,
-    controllers: [__dirname + '/controllers/**/*.+(js|ts)'],
+    controllers: [resolve(__dirname, './controllers/**/*.+(js|ts)')],
     defaultErrorHandler: false,
     cors: true,
     defaults: {
@@ -44,7 +45,6 @@ const initREST = (app: express.Application) => {
     middlewares: [CorrelationIdMiddleware, ErrorHandlerMiddleware]
   }
   useExpressServer(app, routingControllersOptions)
-  // app.use(errorLogger)
 
   // Generate documentation
   const schemas = validationMetadatasToSchemas({

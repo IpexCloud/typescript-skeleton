@@ -16,13 +16,23 @@ export default class ErrorHandler implements ExpressErrorMiddlewareInterface {
 
     switch (error.name) {
       case 'BadRequestError':
+      case 'BadRequest':
         response.status(400)
         break
       case 'Unauthorized':
         response.status(401)
         break
-      case 'Not found':
+      case 'NotFound':
         response.status(404)
+        break
+      case 'Forbidden':
+        response.status(403)
+        break
+      case 'PreconditionFailed':
+        response.status(412)
+        break
+      case 'Conflict':
+        response.status(409)
         break
 
       default:

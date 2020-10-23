@@ -1,33 +1,72 @@
 class NotFoundError extends Error {
-  message: string
-  name: string
+  message = 'Not found'
+  name = 'NotFound'
   constructor(message?: string) {
     super()
-    this.message = message || 'Not found'
-    this.name = 'Not found'
+    if (message) {
+      this.message = message
+    }
   }
 }
 
 class UnauthorizedError extends Error {
-  message: string
-  name: string
+  message = 'Unauthorized'
+  name = 'Unauthorized'
 
   constructor(message?: string) {
     super()
-    this.message = message || 'Unauthorized'
-    this.name = 'Unauthorized'
+    if (message) {
+      this.message = message
+    }
   }
 }
 
 class BadRequestError extends Error {
-  message: string
-  name: string
+  message = 'Bad request'
+  name = 'BadRequest'
 
   constructor(message?: string) {
     super()
-    this.message = message || 'Bad request'
-    this.name = 'BadRequestError'
+    if (message) {
+      this.message = message
+    }
   }
 }
 
-export { NotFoundError, UnauthorizedError, BadRequestError }
+class ForbiddenError extends Error {
+  message = 'Forbidden'
+  name = 'Forbidden'
+
+  constructor(message?: string) {
+    super()
+    if (message) {
+      this.message = message
+    }
+  }
+}
+
+class PreconditionFailedError extends Error {
+  message = 'Precondition failed'
+  name = 'PreconditionFailed'
+
+  constructor(message?: string) {
+    super()
+    if (message) {
+      this.message = message
+    }
+  }
+}
+
+class ConflictError extends Error {
+  message = 'Conflict'
+  name = 'Conflict'
+
+  constructor(message?: string) {
+    super()
+    if (message) {
+      this.message = message
+    }
+  }
+}
+
+export { NotFoundError, UnauthorizedError, BadRequestError, ForbiddenError, PreconditionFailedError, ConflictError }

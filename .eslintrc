@@ -41,7 +41,7 @@
     "prettier/prettier": ["error"],
     "no-mixed-spaces-and-tabs": 2,
     "sort-vars": 2,
-    "curly": 1
+    "curly": ["error", "all"]
   },
   "extends": [
     "prettier",

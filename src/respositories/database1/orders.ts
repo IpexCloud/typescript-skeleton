@@ -1,11 +1,11 @@
 import { getConnection } from 'typeorm'
 
-import Order from '@/model/typeorm/entities/OrderEntity'
+import { OrderEntity } from '@/model/typeorm/database1/entities'
 import { Connections } from '~/config/databases'
 
 const findUserOrders = async (userId: number) => {
   const orders = await getConnection(Connections.database1)
-    .getRepository(Order)
+    .getRepository(OrderEntity)
     .find({
       relations: ['user'],
       where: { user: userId }

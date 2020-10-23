@@ -1,6 +1,6 @@
 import { NotFoundError } from '@/entities/errors'
 
-import User from '@/model/typeorm/entities/UserEntity'
+import { UserEntity } from '@/model/typeorm//database1/entities'
 import * as usersRepository from '@/respositories/database1/users'
 
 const getUsers = async () => {
@@ -16,7 +16,7 @@ const getUser = async (userId: number) => {
   return user
 }
 
-const createUser = (user: User) => {
+const createUser = (user: UserEntity) => {
   return usersRepository.create(user)
 }
 
