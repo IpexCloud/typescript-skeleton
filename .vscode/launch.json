@@ -20,30 +20,22 @@
             "outputCapture": "std"
         },
         {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug tests",
-            "cwd": "${workspaceFolder}",
-            "args": [
-              "--inspect-brk",
-              "${workspaceRoot}/node_modules/.bin/jest",
-              "--runInBand",
-              "--config",
-              "${workspaceRoot}/jest.config.js"
-            ],
-            "windows": {
-              "args": [
-                "--inspect-brk",
-                "${workspaceRoot}/node_modules/jest/bin/jest.js",
-                "--runInBand",
-                "--config",
-                "${workspaceRoot}/jest.config.js"          
-              ],
-            },
-            "outputCapture": "std",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "envFile": "${workspaceFolder}/env/.env"
-          },
+          "type": "node",
+          "request": "launch",
+          "name": "Debug tests",
+          "cwd": "${workspaceFolder}",
+          "runtimeArgs": [
+            "--inspect-brk",
+            "${workspaceRoot}/node_modules/jest/bin/jest",
+            "--runInBand",
+            "--config",
+            "${workspaceRoot}/jest.config.js",
+            "--collectCoverage",
+            "false"
+          ],
+          "console": "integratedTerminal",
+          "internalConsoleOptions": "neverOpen",
+          "envFile": "${workspaceFolder}/env/test.env"
+        }
     ]
 }

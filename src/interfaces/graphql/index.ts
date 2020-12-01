@@ -6,7 +6,7 @@ import { execute, subscribe } from 'graphql'
 import * as http from 'http'
 
 import graphqlLogger from '@/utils/logger/graphqlLogger'
-import { UnauthorizedError } from '@/entities/errors'
+import { UnauthorizedError } from '#/errors'
 
 const pubSub = new PubSub()
 

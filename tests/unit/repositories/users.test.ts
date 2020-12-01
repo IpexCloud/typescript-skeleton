@@ -1,11 +1,11 @@
 import { getConnection } from 'typeorm'
 
-import { initDbConnection, Connections } from '~/config/databases'
+import { initDbConnection, Databases } from '~/config/databases'
 import * as usersRepository from '@/respositories/database1/users'
 
 describe('Users repository', () => {
   beforeAll(async () => {
-    await initDbConnection(Connections.database1)
+    await initDbConnection(Databases.database1)
   })
 
   test('Create new user', async () => {
@@ -24,7 +24,7 @@ describe('Users repository', () => {
 
   afterAll(async done => {
     await usersRepository.remove(5)
-    await getConnection(Connections.database1).close()
+    await getConnection(Databases.database1).close()
     done()
   })
 })

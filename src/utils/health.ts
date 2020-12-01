@@ -1,7 +1,7 @@
 import { existsSync } from 'fs'
 import { getConnection } from 'typeorm'
 
-import { Connections } from '~/config/databases'
+import { Databases } from '~/config/databases'
 
 interface ResponseFormat {
   duration: number
@@ -29,7 +29,7 @@ const checkMaintenance = async (): Promise<ResponseFormat> => {
   return response
 }
 
-const checkDatabaseConnection = async (name: Connections): Promise<ResponseFormat> => {
+const checkDatabaseConnection = async (name: Databases): Promise<ResponseFormat> => {
   const start = Date.now()
   const response = { ...DEFAULT_RESPONSE, name }
   try {

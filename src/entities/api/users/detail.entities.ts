@@ -4,7 +4,7 @@ import { Field, InputType, ObjectType } from 'type-graphql'
 
 @InputType('UserInput')
 @ObjectType('User')
-class UserApiEntity {
+class UserDetailApiInput {
   @IsNumber()
   @Field()
   @JSONSchema({ description: 'User id', example: 1 })
@@ -27,31 +27,17 @@ class UserApiEntity {
   city: string
 }
 
-@ObjectType()
-class UsersOperationEntity {
-  @IsString()
-  @Field()
-  @JSONSchema({ description: 'Operation result' })
-  message: string
-
-  @IsNumber()
-  @Field()
-  @JSONSchema({ description: 'ID of affected user' })
-  userId: number
-}
-
-@ObjectType()
-class NotificationEntity {
-  @IsString()
-  @Field()
-  message: string
-}
-
-@InputType()
-class UserParamsEntity {
+class UserDetailApiParams {
   @Field()
   @IsNumber()
   id: number
 }
 
-export { UsersOperationEntity, UserParamsEntity, UserApiEntity, NotificationEntity }
+@ObjectType()
+class UserNotification {
+  @IsString()
+  @Field()
+  message: string
+}
+
+export { UserDetailApiInput, UserDetailApiParams, UserNotification }

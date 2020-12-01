@@ -2,7 +2,7 @@ import { JsonController, Get } from 'routing-controllers'
 import { OpenAPI } from 'routing-controllers-openapi'
 
 import { version } from '~/package.json'
-import { Connections } from '~/config/databases'
+import { Databases } from '~/config/databases'
 import { checkMaintenance, checkDatabaseConnection } from '@/utils/health'
 
 @OpenAPI({
@@ -23,6 +23,6 @@ export class RootController {
   @Get('/health')
   @OpenAPI({ summary: 'Server health status' })
   async health() {
-    return [await checkMaintenance(), await checkDatabaseConnection(Connections.database1)]
+    return [await checkMaintenance(), await checkDatabaseConnection(Databases.database1)]
   }
 }

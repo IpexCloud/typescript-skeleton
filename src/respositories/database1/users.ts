@@ -1,32 +1,32 @@
 import { getConnection } from 'typeorm'
 
-import { UserEntity } from '@/model/typeorm/database1/entities'
-import { Connections } from '~/config/databases'
+import * as DatabaseEntities from '@/model/database1/entities'
+import { Databases } from '~/config/databases'
 
 const find = async () => {
-  const users = await getConnection(Connections.database1)
-    .getRepository(UserEntity)
+  const users = await getConnection(Databases.database1)
+    .getRepository(DatabaseEntities.User)
     .find()
   return users
 }
 
 const findOne = async (userId: number) => {
-  const user = await getConnection(Connections.database1)
-    .getRepository(UserEntity)
+  const user = await getConnection(Databases.database1)
+    .getRepository(DatabaseEntities.User)
     .findOne({ userId })
   return user
 }
 
-const create = async (user: UserEntity) => {
-  const newUser = await getConnection(Connections.database1)
-    .getRepository(UserEntity)
+const create = async (user: DatabaseEntities.User) => {
+  const newUser = await getConnection(Databases.database1)
+    .getRepository(DatabaseEntities.User)
     .save(user)
   return newUser
 }
 
 const remove = (userId: number) => {
-  return getConnection(Connections.database1)
-    .getRepository(UserEntity)
+  return getConnection(Databases.database1)
+    .getRepository(DatabaseEntities.User)
     .delete({ userId })
 }
 

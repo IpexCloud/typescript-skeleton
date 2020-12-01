@@ -1,8 +1,8 @@
 import { Authorized, JsonController, Params, Get } from 'routing-controllers'
 import { OpenAPI } from 'routing-controllers-openapi'
 
-import { UserParamsEntity } from '@/entities/v1/UserApiEntity'
-import { getUserOrders } from '@/services/orders'
+import { OrdersListApiParams } from '#/api/orders/list.entitites'
+import { getUserOrders } from '@/services/orders.service'
 
 @Authorized()
 @OpenAPI({
@@ -15,7 +15,7 @@ export class OrderController {
   @OpenAPI({
     summary: 'Get list of orders from user'
   })
-  async getAll(@Params() { id }: UserParamsEntity) {
+  async getAll(@Params() { id }: OrdersListApiParams) {
     const orders = await getUserOrders(id)
     return orders
   }

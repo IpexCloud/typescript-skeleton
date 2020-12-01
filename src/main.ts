@@ -5,9 +5,9 @@ import * as bodyParser from 'body-parser'
 import { createTerminus } from '@godaddy/terminus'
 import { getConnection } from 'typeorm'
 
-import { logger } from './utils/logger/logger'
+import logger from './utils/logger/logger'
 import { PORT } from '~/config'
-import { initDbConnection, Connections } from '~/config/databases'
+import { initDbConnection, Databases } from '~/config/databases'
 import initREST from './interfaces/rest'
 import initGraphQL from './interfaces/graphql'
 
@@ -15,7 +15,7 @@ import initGraphQL from './interfaces/graphql'
 ;(async function() {
   const app: express.Application = express()
 
-  await initDbConnection(Connections.database1)
+  await initDbConnection(Databases.database1)
 
   app.use(bodyParser.json())
 
@@ -28,7 +28,7 @@ import initGraphQL from './interfaces/graphql'
       logger.info('Server is starting cleanup')
       return Promise.all([
         // your clean logic, like closing database connections
-        getConnection(Connections.database1).close()
+        getConnection(Databases.database1).close()
       ])
     }
   })

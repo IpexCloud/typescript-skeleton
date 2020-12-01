@@ -7,10 +7,10 @@ import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
 import restLogger from '@/utils/logger/restLogger'
-import CorrelationIdMiddleware from './middlewares/correlationIdMiddleware'
-import ErrorHandlerMiddleware from './middlewares/errorHandlerMiddleware'
+import CorrelationIdMiddleware from './middlewares/correlationId.middleware'
+import ErrorHandlerMiddleware from './middlewares/errorHandler.middleware'
 import { version } from '~/package.json'
-import { UnauthorizedError } from '@/entities/errors'
+import { UnauthorizedError } from '#/errors'
 
 const authorizationChecker = (action: Action, roles: string[]): boolean => {
   // here you can use request/response objects from action

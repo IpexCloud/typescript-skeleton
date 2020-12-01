@@ -20,6 +20,7 @@ module.exports = {
 
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
+  testTimeout: 120000,
 
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
@@ -31,7 +32,7 @@ module.exports = {
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['\\\\node_modules\\\\', 'src/model'],
+  coveragePathIgnorePatterns: ['\\\\node_modules\\\\', 'src/model', 'src/utils/logger'],
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: ['json-summary', 'text', 'lcov'],
@@ -50,6 +51,7 @@ module.exports = {
 
   // A path to a module which exports an async function that is triggered once before all test suites
   // globalSetup: undefined,
+  setupFiles: ['<rootDir>/tests/setup.ts'],
 
   // A path to a module which exports an async function that is triggered once after all test suites
   // globalTeardown: undefined,
@@ -173,7 +175,7 @@ module.exports = {
   // unmockedModulePathPatterns: undefined,
 
   // Indicates whether each individual test should be reported during the run
-  verbose: true,
+  verbose: false,
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
   // watchPathIgnorePatterns: [],

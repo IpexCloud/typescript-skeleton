@@ -35,7 +35,7 @@ TODO:
 1. update ormconfig.json file with credentials to database
 2. run command
 ```sh
-npx typeorm migration:create -n {name-for-migration}
+npx typeorm migration:create -n {name-for-migration} --config "src/model/{databse-name}/ormconfig.js"
 ```
 3. add your SQL commands to up and down functions (e.g. https://typeorm.io/#/migrations/creating-a-new-migration)
 
@@ -48,7 +48,7 @@ npx typeorm migration:create -n {name-for-migration}
 ```
 2. Run migrations or revert
 ```sh
-npm run typeorm migration:run
+npm run typeorm migration:run -- --config "src/model/{databse-name}/ormconfig.js"
 ```
 
 

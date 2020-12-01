@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm'
-import Order from './OrderEntity'
+import Order from './Order.entity'
 
 @Entity({ name: 'users' }) // same as table name
 class User {

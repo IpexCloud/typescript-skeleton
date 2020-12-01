@@ -3,7 +3,7 @@ import { Response, Request } from 'express'
 import { ValidationError } from 'class-validator'
 
 import logRestError from '@/utils/logger/restErrorLogger'
-import { getStatusCodeFromError } from '@/utils/logger/logger'
+import { getStatusCodeFromError } from '@/utils/helpers'
 import { ValidatorError } from '@/types'
 
 type ErrorResponse = {
