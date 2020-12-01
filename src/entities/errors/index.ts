@@ -1,3 +1,5 @@
+import { ValidatorError } from '@/types'
+
 class NotFoundError extends Error {
   message = 'Not found'
   name = 'NotFound'
@@ -24,11 +26,15 @@ class UnauthorizedError extends Error {
 class BadRequestError extends Error {
   message = 'Bad request'
   name = 'BadRequest'
+  errors: ValidatorError[]
 
-  constructor(message?: string) {
+  constructor(message?: string, errors?: ValidatorError[]) {
     super()
     if (message) {
       this.message = message
+    }
+    if (errors?.length) {
+      this.errors = errors
     }
   }
 }
