@@ -5,6 +5,7 @@
   "description": "TypeScript quick start skeleton",
   "scripts": {
     "build": "rimraf build && tsc -p tsconfig.json && ttsc",
+    "postinstall": "rimraf build && tsc -p tsconfig.json && ttsc",
     "build:watch": "nodemon --watch src --watch config --exec \"ts-node -r tsconfig-paths/register\" src/main.ts",
     "start": "node build/src/main",
     "typeorm": "ts-node -r ./tsconfig.json ./node_modules/typeorm/cli.js",
