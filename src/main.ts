@@ -1,10 +1,11 @@
 import 'reflect-metadata'
 import * as express from 'express'
 import * as http from 'http'
-import * as bodyParser from 'body-parser'
 import { createTerminus } from '@godaddy/terminus'
 import { getConnection } from 'typeorm'
+import { config } from 'dotenv'
 
+config({ path: './env/.env' })
 import logger from './utils/logger/logger'
 import { PORT } from '~/config'
 import { initDbConnection, Databases } from '~/config/databases'
@@ -16,8 +17,6 @@ import initGraphQL from './interfaces/graphql'
   const app: express.Application = express()
 
   await initDbConnection(Databases.database1)
-
-  app.use(bodyParser.json())
 
   const server = http.createServer(app)
   initREST(app)

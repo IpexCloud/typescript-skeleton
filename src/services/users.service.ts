@@ -1,14 +1,16 @@
 import { NotFoundError, ConflictError } from '@/entities/errors'
 
 import * as DatabaseEntity from '@/model/database1/entities'
-import * as usersRepository from '@/respositories/database1/users'
+import UsersRepository from '@/respositories/database1/users.repository'
 
 const getUsers = async () => {
+  const usersRepository = new UsersRepository()
   const users = await usersRepository.find()
   return users
 }
 
 const getUser = async (userId: number) => {
+  const usersRepository = new UsersRepository()
   const user = await usersRepository.findOne(userId)
   if (!user) {
     throw new NotFoundError(`User with id ${userId} not found`)
@@ -17,6 +19,7 @@ const getUser = async (userId: number) => {
 }
 
 const createUser = async (user: DatabaseEntity.User) => {
+  const usersRepository = new UsersRepository()
   const savedUser = await usersRepository.findOne(user.userId)
 
   if (savedUser) {
@@ -26,6 +29,7 @@ const createUser = async (user: DatabaseEntity.User) => {
 }
 
 const deleteUser = async (userId: number): Promise<void> => {
+  const usersRepository = new UsersRepository()
   const { affected } = await usersRepository.remove(userId)
   if (!affected) {
     throw new NotFoundError()

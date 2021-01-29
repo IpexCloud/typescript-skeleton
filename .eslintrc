@@ -26,7 +26,6 @@
   "rules": {
     "no-console": 0,
     "no-undef": 1,
-    "no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
     "semi": ["error", "never"],
     "no-useless-constructor": "off",
     "no-return-await": 2,

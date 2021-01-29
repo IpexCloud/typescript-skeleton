@@ -1,12 +1,14 @@
 import { getConnection } from 'typeorm'
 
 import { initDbConnection, Databases } from '~/config/databases'
-import * as usersRepository from '@/respositories/database1/users'
+import UsersRepository from '@/respositories/database1/users.repository'
 
 describe('Users repository', () => {
   beforeAll(async () => {
     await initDbConnection(Databases.database1)
   })
+
+  const usersRepository = new UsersRepository()
 
   test('Create new user', async () => {
     const newUser = {
@@ -16,7 +18,6 @@ describe('Users repository', () => {
       address: 'Avenue St',
       city: 'Brno'
     }
-
     const user = await usersRepository.create(newUser)
 
     expect(user).toEqual(newUser)

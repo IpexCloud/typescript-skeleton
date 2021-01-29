@@ -5,11 +5,12 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import { resolve } from 'path'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 
 import restLogger from '@/utils/logger/restLogger'
 import CorrelationIdMiddleware from './middlewares/correlationId.middleware'
 import ErrorHandlerMiddleware from './middlewares/errorHandler.middleware'
-import { version } from '~/package.json'
+import { version, name, description } from '~/package.json'
 import { UnauthorizedError } from '#/errors'
 
 const authorizationChecker = (action: Action, roles: string[]): boolean => {
@@ -29,6 +30,7 @@ const authorizationChecker = (action: Action, roles: string[]): boolean => {
 const initREST = (app: express.Application) => {
   // Register logging middleware for REST
   app.use(restLogger)
+  app.use(bodyParser.json())
 
   const routingControllersOptions = {
     authorizationChecker,
@@ -38,6 +40,9 @@ const initREST = (app: express.Application) => {
     defaults: {
       nullResultCode: 404,
       undefinedResultCode: 204
+    },
+    validation: {
+      whitelist: true
     },
     middlewares: [CorrelationIdMiddleware, ErrorHandlerMiddleware]
   }
@@ -64,8 +69,8 @@ const initREST = (app: express.Application) => {
       }
     },
     info: {
-      description: 'Generated with `routing-controllers-openapi`',
-      title: 'Typescript skeleton',
+      title: name,
+      description,
       version
     }
   })

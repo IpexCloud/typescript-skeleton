@@ -1,7 +1,3 @@
-import { config } from 'dotenv'
-
-config({ path: './env/.env' })
-
 export const PORT = process.env.PORT || '3000'
 export const DATABASE = process.env.DATABASE
 export const DATABASE_HOST = process.env.DATABASE_HOST

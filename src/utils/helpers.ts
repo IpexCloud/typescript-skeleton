@@ -2,6 +2,7 @@ const getStatusCodeFromError = (error: { name: string }) => {
   switch (error.name) {
     case 'BadRequestError':
     case 'BadRequest':
+    case 'SyntaxError':
       return 400
     case 'Unauthorized':
       return 401
