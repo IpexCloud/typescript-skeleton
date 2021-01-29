@@ -1,7 +1,7 @@
 import { getConnection } from 'typeorm'
 
 import { initDbConnection, Databases } from '~/config/databases'
-import UsersRepository from '@/respositories/database1/users.repository'
+import UsersRepository from '@/repositories/database1/users.repository'
 
 describe('Users repository', () => {
   beforeAll(async () => {
