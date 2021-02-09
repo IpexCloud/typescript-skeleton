@@ -1,8 +1,6 @@
 import * as express from 'express'
 import { AuthChecker, buildSchema } from 'type-graphql'
-import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { ApolloServer, PubSub } from 'apollo-server-express'
-import { execute, subscribe } from 'graphql'
 import * as http from 'http'
 
 import graphqlLogger from '@/utils/logger/graphqlLogger'
@@ -31,7 +29,9 @@ const initGraphQL = async (app: express.Application, server: http.Server) => {
     schema,
     playground: true,
     subscriptions: {
-      path: '/'
+      path: '/',
+      onConnect: () => console.log('Websocket connected'),
+      onDisconnect: () => console.log('Websocket disconnected')
     },
     context: ({ req }): object | null => {
       // User metadata
@@ -53,18 +53,7 @@ const initGraphQL = async (app: express.Application, server: http.Server) => {
   })
 
   apolloServer.applyMiddleware({ app })
-
-  new SubscriptionServer(
-    {
-      execute,
-      subscribe,
-      schema
-    },
-    {
-      server,
-      path: '/'
-    }
-  )
+  apolloServer.installSubscriptionHandlers(server)
 
   return app
 }

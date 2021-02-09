@@ -30,7 +30,6 @@
     "mysql": "^2.18.1",
     "routing-controllers": "^0.8.1",
     "routing-controllers-openapi": "^2.2.0",
-    "subscriptions-transport-ws": "^0.9.18",
     "swagger-ui-express": "^4.1.6",
     "tsconfig-paths-jest": "0.0.1",
     "tslib": "~1.10.0",
