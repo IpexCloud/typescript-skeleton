@@ -40,7 +40,7 @@ const logRestError = (error: ValidatorError | Error, request: Request) => {
     instanceId: hostname(),
     msg: error.message,
     severity: 'error',
-    source: ENVIRONMENT_NAME || 'typescript-skeleton',
+    source: ENVIRONMENT_NAME,
     stack: error.stack
   }
 

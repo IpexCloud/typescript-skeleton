@@ -56,7 +56,7 @@ const requestFormat = format.printf(data => {
     responseTime: meta.responseTime,
     route: meta.req.url,
     severity: level,
-    source: ENVIRONMENT_NAME || 'typescript-skeleton',
+    source: ENVIRONMENT_NAME,
     statusCode: meta.res.statusCode,
     user: userId,
     metadata: typeof meta.req.body === 'object' ? JSON.stringify(meta.req.body) : JSON.stringify({ msg: meta.req.body })

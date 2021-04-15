@@ -10,9 +10,9 @@ module.exports = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE,
   migrationsTableName: 'migrations',
-  entities: '[.src/model/database1/entities/*.ts]',
-  migrations: '[./src/model/database1/migrations/*.ts]',
+  entities: ['.src/model/database1/entities/*.ts'],
+  migrations: ['./src/model/database1/migrations/*.ts'],
   cli: {
-    migrationsDir: './src/model/database1/migrations/'
+    migrationsDir: 'src/model/database1/migrations/'
   }
 }

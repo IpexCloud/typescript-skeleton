@@ -1,7 +1,19 @@
-import { Authorized, Query, Mutation, Arg, Resolver, Subscription, Root, PubSub, PubSubEngine } from 'type-graphql'
+import {
+  Authorized,
+  Query,
+  Mutation,
+  Arg,
+  Resolver,
+  Subscription,
+  Root,
+  PubSub,
+  PubSubEngine,
+  UseMiddleware
+} from 'type-graphql'
 
 import { UserDetailApiInput, UserNotification } from '#/api/users/detail.entities'
 import { getUsers, createUser } from '@/services/users.service'
+import LogSubscription from '@/interfaces/graphql/middlewares/logSubscription.middleware'
 
 @Resolver()
 class UserResolver {
@@ -24,6 +36,7 @@ class UserResolver {
     return { message }
   }
 
+  @UseMiddleware(LogSubscription)
   @Subscription(() => UserNotification, {
     topics: 'NOTIFICATIONS'
   })

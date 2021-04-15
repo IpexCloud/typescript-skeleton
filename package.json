@@ -10,7 +10,7 @@
     "start": "node build/src/main",
     "typeorm": "ts-node -r ./tsconfig.json ./node_modules/typeorm/cli.js",
     "test": "jest",
-    "test:watch": "nodemon -e ts,json --watch src --watch config --exec jest -- --collectCoverage false"
+    "test:watch": "nodemon -e ts,json --watch src --watch config --watch tests --exec jest -- --collectCoverage false"
   },
   "license": "MIT",
   "dependencies": {

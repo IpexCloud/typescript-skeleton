@@ -42,7 +42,8 @@ const initREST = (app: express.Application) => {
       undefinedResultCode: 204
     },
     validation: {
-      whitelist: true
+      whitelist: true,
+      forbidNonWhitelisted: true
     },
     middlewares: [CorrelationIdMiddleware, ErrorHandlerMiddleware]
   }

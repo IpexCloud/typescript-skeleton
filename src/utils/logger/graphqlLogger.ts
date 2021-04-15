@@ -58,7 +58,7 @@ const requestFormat = format.printf(data => {
     responseTime: meta.responseTime,
     route: meta.req.url,
     severity: level,
-    source: ENVIRONMENT_NAME || 'typescript-skeleton',
+    source: ENVIRONMENT_NAME,
     statusCode: meta.res.statusCode,
     user: userId,
     gqlOperation: meta.req.body.query.split(' ')[0],
