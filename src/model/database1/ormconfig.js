@@ -4,11 +4,7 @@ config({ path: './env/.env' })
 
 module.exports = {
   type: 'mysql',
-  host: process.env.DATABASE_HOST,
-  port: 3306,
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE,
+  url: process.env.DATABASE_URL,
   migrationsTableName: 'migrations',
   entities: ['.src/model/database1/entities/*.ts'],
   migrations: ['./src/model/database1/migrations/*.ts'],

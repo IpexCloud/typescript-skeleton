@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { createConnection, ConnectionOptions } from 'typeorm'
 
-import { DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE } from '.'
+import { DATABASE_URL } from '.'
 
 enum Databases {
   database1 = 'database1'
@@ -12,11 +12,7 @@ const getSettings = (name: Databases): ConnectionOptions => {
     case Databases.database1: {
       return {
         type: 'mysql',
-        port: 3306,
-        host: DATABASE_HOST,
-        username: DATABASE_USER,
-        password: DATABASE_PASSWORD,
-        database: DATABASE,
+        url: DATABASE_URL,
         entities: [resolve(__dirname, `../src/model/${Databases.database1}/entities/**`)]
       }
     }
