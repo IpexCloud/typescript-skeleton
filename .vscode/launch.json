@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Run server",
-            "program": "${workspaceFolder}\\src\\main.ts",
+            "program": "${workspaceFolder}/src/main.ts",
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
             "smartStep": true,
