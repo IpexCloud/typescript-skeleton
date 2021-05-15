@@ -78,6 +78,9 @@ const initREST = (app: express.Application) => {
 
   // Use route for documentation
   app.use('/documentation', swaggerUi.serve, swaggerUi.setup(spec))
+  app.get('/', function (_req, res) {
+    res.redirect('/documentation')
+  })
 }
 
 export default initREST
