@@ -3,11 +3,9 @@ import { OpenAPI } from 'routing-controllers-openapi'
 
 import { version } from '~/package.json'
 import { Databases } from '~/config/databases'
-import { checkMaintenance, checkDatabaseConnection } from '@/utils/health'
+import { checkMaintenance, checkDatabaseConnection } from 'utils/health'
 
-@OpenAPI({
-  tags: ['/']
-})
+@OpenAPI({ tags: ['/'] })
 @JsonController()
 export class RootController {
   @Get('/alive')

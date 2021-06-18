@@ -1,8 +1,8 @@
 import { Authorized, JsonController, Params, Get } from 'routing-controllers'
 import { OpenAPI } from 'routing-controllers-openapi'
 
-import { OrdersListApiParams } from '#/api/orders/list.entitites'
-import { getUserOrders } from '@/services/orders.service'
+import { OrdersListApiParams } from 'entities/api/orders/list.entitites'
+import { getUserOrders } from 'services/orders.service'
 
 @Authorized()
 @OpenAPI({
@@ -10,7 +10,7 @@ import { getUserOrders } from '@/services/orders.service'
   tags: ['Orders']
 })
 @JsonController()
-export class OrderController {
+export class OrdersController {
   @Get('/orders/:id')
   @OpenAPI({
     summary: 'Get list of orders from user'

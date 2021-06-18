@@ -1,16 +1,14 @@
 import { Authorized, JsonController, Params, Body, Get, Post, Delete } from 'routing-controllers'
 import { ResponseSchema, OpenAPI } from 'routing-controllers-openapi'
 
-import { getUsers, getUser, createUser, deleteUser } from '@/services/users.service'
-import { UserDetailApiInput, UserDetailApiParams } from '#/api/users/detail.entities'
-import { UserDeleteApiParams } from '#/api/users/delete.entitites'
+import { getUsers, getUser, createUser, deleteUser } from 'services/users.service'
+import { UserDetailApiInput, UserDetailApiParams } from 'entities/api/users/detail.entities'
+import { UserDeleteApiParams } from 'entities/api/users/delete.entitites'
 
 @Authorized()
-@OpenAPI({
-  security: [{ bearerAuth: [], basicAuth: [] }]
-})
+@OpenAPI({ security: [{ bearerAuth: [], basicAuth: [] }] })
 @JsonController()
-export class UserController {
+export class UsersController {
   @Get('/users')
   @ResponseSchema(UserDetailApiInput, { isArray: true })
   @OpenAPI({

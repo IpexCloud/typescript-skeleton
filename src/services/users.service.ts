@@ -1,7 +1,7 @@
-import { NotFoundError, ConflictError } from '@/entities/errors'
+import { NotFoundError, ConflictError } from 'entities/errors'
 
-import * as DatabaseEntity from '@/model/database1/entities'
-import UsersRepository from '@/repositories/database1/users.repository'
+import * as DatabaseEntity from 'model/database1/entities'
+import UsersRepository from 'repositories/database1/users.repository'
 
 const getUsers = async () => {
   const usersRepository = new UsersRepository()

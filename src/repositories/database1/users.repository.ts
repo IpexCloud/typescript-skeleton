@@ -1,7 +1,7 @@
 import { Connection, Repository, getConnection, EntityManager } from 'typeorm'
 
 import { Databases } from '~/config/databases'
-import * as DatabaseEntities from '@/model/database1/entities'
+import * as DatabaseEntities from 'model/database1/entities'
 
 export default class UsersRepository {
   private usersRepository: Repository<DatabaseEntities.User>

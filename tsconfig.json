@@ -29,8 +29,13 @@
     ],   
     "paths": {
         "@/*": ["./src/*"],
-        "#/*": ["./src/entities/*"],
-        "~/*": ["./*"]
+        "~/*": ["./*"],
+        "entities*": ["./src/entities/*"],
+        "repositories*": ["./src/repositories/*"],
+        "services*": ["./src/services/*"],
+        "utils*": ["./src/utils/*"],
+        "model*": ["./src/model/*"],
+        "interfaces*": ["./src/interfaces/*"],
       }
     },
   "exclude": ["node_modules", "build", "package.json", "package-lock.json"]

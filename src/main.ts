@@ -3,14 +3,14 @@ import * as express from 'express'
 import * as http from 'http'
 import { createTerminus } from '@godaddy/terminus'
 import { getConnection } from 'typeorm'
-import { config } from 'dotenv'
+import { loadEnv } from 'utils/helpers'
 
-config({ path: './env/.env' })
-import logger from './utils/logger/logger'
+loadEnv()
+import logger from 'utils/logger/logger'
 import { PORT } from '~/config'
 import { initDbConnection, Databases } from '~/config/databases'
-import initREST from './interfaces/rest'
-import initGraphQL from './interfaces/graphql'
+import initREST from 'interfaces/rest'
+import initGraphQL from 'interfaces/graphql'
 
 // Start server, init db connections and interfaces
 ;(async function() {

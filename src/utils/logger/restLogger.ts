@@ -5,7 +5,7 @@ import { hostname } from 'os'
 
 import { version } from '~/package.json'
 import { ENVIRONMENT_NAME, GRAPHQL_ENDPOINT } from '~/config'
-import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from '@/utils/auth'
+import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from 'utils/auth'
 
 interface LogFormat {
   '@timestamp': string
@@ -58,8 +58,7 @@ const requestFormat = format.printf(data => {
     severity: level,
     source: ENVIRONMENT_NAME,
     statusCode: meta.res.statusCode,
-    user: userId,
-    metadata: typeof meta.req.body === 'object' ? JSON.stringify(meta.req.body) : JSON.stringify({ msg: meta.req.body })
+    user: userId
   }
 
   if (!(meta.res.statusCode >= 200 && meta.res.statusCode < 300)) {

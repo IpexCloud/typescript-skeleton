@@ -11,9 +11,9 @@ import {
   UseMiddleware
 } from 'type-graphql'
 
-import { UserDetailApiInput, UserNotification } from '#/api/users/detail.entities'
-import { getUsers, createUser } from '@/services/users.service'
-import LogSubscription from '@/interfaces/graphql/middlewares/logSubscription.middleware'
+import { UserDetailApiInput, UserNotification } from 'entities/api/users/detail.entities'
+import { getUsers, createUser } from 'services/users.service'
+import LogSubscription from 'interfaces/graphql/middlewares/logSubscription.middleware'
 
 @Resolver()
 class UserResolver {

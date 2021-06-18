@@ -1,13 +1,6 @@
-const loadEnv = (name: string): string => {
-  const variable = process.env[name]
-  if (variable === undefined) {
-    console.log('Missing required env variable: ' + name)
-    process.exit(1)
-  }
-  return variable
-}
+import { loadEnvVariable } from 'utils/helpers'
 
 export const PORT = process.env.PORT || '3000'
-export const DATABASE_URL = loadEnv('DATABASE_URL')
+export const DATABASE_URL = loadEnvVariable('DATABASE_URL')
 export const ENVIRONMENT_NAME = process.env.ENVIRONMENT_NAME || 'typescript-skeleton'
 export const GRAPHQL_ENDPOINT = '/graphql'

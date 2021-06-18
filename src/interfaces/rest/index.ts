@@ -7,11 +7,11 @@ import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 
-import restLogger from '@/utils/logger/restLogger'
+import restLogger from 'utils/logger/restLogger'
 import CorrelationIdMiddleware from './middlewares/correlationId.middleware'
 import ErrorHandlerMiddleware from './middlewares/errorHandler.middleware'
 import { version, name, description } from '~/package.json'
-import { UnauthorizedError } from '#/errors'
+import { UnauthorizedError } from 'entities/errors'
 
 const authorizationChecker = (action: Action, roles: string[]): boolean => {
   // here you can use request/response objects from action
@@ -78,9 +78,7 @@ const initREST = (app: express.Application) => {
 
   // Use route for documentation
   app.use('/documentation', swaggerUi.serve, swaggerUi.setup(spec))
-  app.get('/', function (_req, res) {
-    res.redirect('/documentation')
-  })
+  app.get('/', (_, res) => res.redirect('/documentation'))
 }
 
 export default initREST
