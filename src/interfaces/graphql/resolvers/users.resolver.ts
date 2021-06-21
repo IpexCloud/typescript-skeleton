@@ -8,7 +8,7 @@ import {
   Root,
   PubSub,
   PubSubEngine,
-  UseMiddleware
+  UseMiddleware,
 } from 'type-graphql'
 
 import { UserDetailApiInput, UserNotification } from 'entities/api/users/detail.entities'
@@ -38,7 +38,7 @@ class UserResolver {
 
   @UseMiddleware(LogSubscription)
   @Subscription(() => UserNotification, {
-    topics: 'NOTIFICATIONS'
+    topics: 'NOTIFICATIONS',
   })
   sendNotification(@Root() notificationPayload: UserNotification): UserNotification {
     return notificationPayload

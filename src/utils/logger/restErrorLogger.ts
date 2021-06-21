@@ -22,9 +22,9 @@ interface ErrorLogFormat {
 const logger = createLogger({
   transports: [
     new transports.Console({
-      format: format.printf(data => data.message)
-    })
-  ]
+      format: format.printf((data) => data.message),
+    }),
+  ],
 })
 
 const logRestError = (error: ValidatorError | Error, request: Request) => {
@@ -41,12 +41,12 @@ const logRestError = (error: ValidatorError | Error, request: Request) => {
     msg: error.message,
     severity: 'error',
     source: ENVIRONMENT_NAME,
-    stack: error.stack
+    stack: error.stack,
   }
 
   logger.log({
     level: 'error',
-    message: JSON.stringify(errorLog)
+    message: JSON.stringify(errorLog),
   })
 }
 

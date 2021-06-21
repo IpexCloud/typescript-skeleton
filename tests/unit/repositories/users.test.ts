@@ -16,14 +16,14 @@ describe('Users repository', () => {
       firstName: 'John',
       lastName: 'Doe',
       address: 'Avenue St',
-      city: 'Brno'
+      city: 'Brno',
     }
     const user = await usersRepository.create(newUser)
 
     expect(user).toEqual(newUser)
   })
 
-  afterAll(async done => {
+  afterAll(async (done) => {
     await usersRepository.remove(5)
     await getConnection(Databases.database1).close()
     done()

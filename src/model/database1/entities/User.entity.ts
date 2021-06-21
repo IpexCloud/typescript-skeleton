@@ -18,10 +18,7 @@ class User {
   @Column('varchar', { length: 255 })
   city: string
 
-  @OneToMany(
-    () => Order,
-    order => order.user
-  )
+  @OneToMany(() => Order, (order) => order.user)
   orders?: Order[]
 }
 

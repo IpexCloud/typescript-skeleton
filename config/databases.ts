@@ -4,7 +4,7 @@ import { createConnection, ConnectionOptions } from 'typeorm'
 import { DATABASE_URL } from '.'
 
 enum Databases {
-  database1 = 'database1'
+  database1 = 'database1',
 }
 
 const getSettings = (name: Databases): ConnectionOptions => {
@@ -13,7 +13,7 @@ const getSettings = (name: Databases): ConnectionOptions => {
       return {
         type: 'mysql',
         url: DATABASE_URL,
-        entities: [resolve(__dirname, `../src/model/${Databases.database1}/entities/**`)]
+        entities: [resolve(__dirname, `../src/model/${Databases.database1}/entities/**`)],
       }
     }
   }
@@ -23,7 +23,7 @@ const initDbConnection = (database: Databases, name?: string, options?: { [key: 
   createConnection({
     name: database + (name || ''),
     ...getSettings(database),
-    ...options
+    ...options,
   })
 
 export { initDbConnection, Databases }

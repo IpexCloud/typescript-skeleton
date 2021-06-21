@@ -7,13 +7,13 @@ import { getUserOrders } from 'services/orders.service'
 @Authorized()
 @OpenAPI({
   security: [{ bearerAuth: [] }],
-  tags: ['Orders']
+  tags: ['Orders'],
 })
 @JsonController()
 export class OrdersController {
   @Get('/orders/:id')
   @OpenAPI({
-    summary: 'Get list of orders from user'
+    summary: 'Get list of orders from user',
   })
   async getAll(@Params() { id }: OrdersListApiParams) {
     const orders = await getUserOrders(id)

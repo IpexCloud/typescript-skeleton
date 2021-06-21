@@ -9,10 +9,7 @@ class Order {
   @Column('timestamp')
   createdAt: number
 
-  @ManyToOne(
-    () => User,
-    user => user.orders
-  )
+  @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn({ name: 'userId' })
   user: User
 }

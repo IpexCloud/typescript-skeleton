@@ -1,14 +1,15 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2018
+    "sourceType": "module"
   },
   "plugins": ["prettier", "@typescript-eslint", "jest"],
+  "env": {
+    "node": true,
+    "jest": true
+  },
   "globals": {
     "console": true,
-    "window": true,
-    "document": true,
-    "localStorage": true,
     "setTimeout": true,
     "FormData": true,
     "require": true,

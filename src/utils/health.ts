@@ -14,7 +14,7 @@ const DEFAULT_RESPONSE = {
   duration: 0,
   message: 'OK',
   name: 'maintenance',
-  statusCode: 200
+  statusCode: 200,
 }
 
 const checkMaintenance = async (): Promise<ResponseFormat> => {

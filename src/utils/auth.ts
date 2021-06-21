@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken'
 enum AuthTypes {
   basicAuth = 'basicAuth',
   bearerToken = 'bearerToken',
-  unknown = 'unknown'
+  unknown = 'unknown',
 }
 
 const getAuthType = (auth: string | undefined | null): AuthTypes => {
@@ -39,13 +39,11 @@ interface BasicAuthMeta {
 const getBasicAuthMeta = (auth: string): BasicAuthMeta | null => {
   if (getAuthType(auth) === 'basicAuth') {
     const [, credentials] = auth.split(' ')
-    const decodedCredentials = Buffer.from(credentials, 'base64')
-      .toString()
-      .split(':')
+    const decodedCredentials = Buffer.from(credentials, 'base64').toString().split(':')
     if (decodedCredentials.length === 2) {
       return {
         user: decodedCredentials[0],
-        password: decodedCredentials[1]
+        password: decodedCredentials[1],
       }
     } else {
       return null

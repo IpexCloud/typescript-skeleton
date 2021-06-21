@@ -19,7 +19,7 @@ export default class OrdersRepository {
   findUserOrders(userId: number) {
     return this.ordersRepository.find({
       relations: ['user'],
-      where: { user: userId }
+      where: { user: userId },
     })
   }
 }

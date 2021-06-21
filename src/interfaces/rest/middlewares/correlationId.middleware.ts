@@ -1,6 +1,6 @@
 import { Middleware, ExpressMiddlewareInterface } from 'routing-controllers'
 import { NextFunction, Response, Request } from 'express'
-import * as uuidv4 from 'uuid/v4'
+import { v4 as uuidv4 } from 'uuid'
 
 @Middleware({ type: 'before' })
 export default class CorrelationIdMiddleware implements ExpressMiddlewareInterface {

@@ -15,7 +15,7 @@ type ErrorResponse = {
 export default class ErrorHandler implements ExpressErrorMiddlewareInterface {
   error(error: ValidatorError | Error, request: Request, response: Response) {
     const errorResponse: ErrorResponse = {
-      message: error.message
+      message: error.message,
     }
 
     if ('errors' in error) {

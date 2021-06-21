@@ -14,7 +14,7 @@ export class RootController {
     return {
       status: 'OK',
       uptime: Math.ceil(process.uptime()),
-      version
+      version,
     }
   }
 
