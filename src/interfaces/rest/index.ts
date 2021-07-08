@@ -5,7 +5,6 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import { resolve } from 'path'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
-import * as bodyParser from 'body-parser'
 
 import restLogger from 'utils/logger/restLogger'
 import CorrelationIdMiddleware from './middlewares/correlationId.middleware'
@@ -30,7 +29,8 @@ const authorizationChecker = (action: Action, roles: string[]): boolean => {
 const initREST = (app: express.Application) => {
   // Register logging middleware for REST
   app.use(restLogger)
-  app.use(bodyParser.json())
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
 
   const routingControllersOptions = {
     authorizationChecker,
