@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES2020",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "outDir": "build",
@@ -19,7 +19,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": ".", 
+    "baseUrl": "./", 
     "plugins": [
       {
         "transform": "@zerollup/ts-transform-paths",
@@ -29,12 +29,11 @@
     "paths": {
         "@/*": ["./src/*"],
         "~/*": ["./*"],
-        "entities*": ["./src/entities/*"],
-        "repositories*": ["./src/repositories/*"],
-        "services*": ["./src/services/*"],
-        "utils*": ["./src/utils/*"],
-        "model*": ["./src/model/*"],
-        "interfaces*": ["./src/interfaces/*"],
+        "entities/*": ["./src/entities/*"],
+        "repositories/*": ["./src/repositories/*"],
+        "services/*": ["./src/services/*"],
+        "model/*": ["./src/model/*"],
+        "interfaces/*": ["./src/interfaces/*"]
       }
     },
   "exclude": ["node_modules", "build", "package.json", "package-lock.json"]

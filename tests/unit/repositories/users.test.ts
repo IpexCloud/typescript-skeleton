@@ -23,9 +23,8 @@ describe('Users repository', () => {
     expect(user).toEqual(newUser)
   })
 
-  afterAll(async (done) => {
+  afterAll(async () => {
     await usersRepository.remove(5)
     await getConnection(Databases.database1).close()
-    done()
   })
 })

@@ -1,12 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { defaultMetadataStorage } = require('class-transformer/cjs/storage')
 import { useExpressServer, getMetadataArgsStorage, Action } from 'routing-controllers'
 import { routingControllersToSpec } from 'routing-controllers-openapi'
-import { defaultMetadataStorage } from 'class-transformer/storage'
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import { resolve } from 'path'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
-import restLogger from 'utils/logger/restLogger'
+import restLogger from '@/utils/logger/restLogger'
 import CorrelationIdMiddleware from './middlewares/correlationId.middleware'
 import ErrorHandlerMiddleware from './middlewares/errorHandler.middleware'
 import { version, name, description } from '~/package.json'

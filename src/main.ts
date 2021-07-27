@@ -6,7 +6,7 @@ import { getConnection } from 'typeorm'
 import { config } from 'dotenv'
 
 config({ path: './env/.env' })
-import logger from 'utils/logger/logger'
+import logger from '@/utils/logger/logger'
 import { PORT } from '~/config'
 import { initDbConnection, Databases } from '~/config/databases'
 import initREST from 'interfaces/rest'

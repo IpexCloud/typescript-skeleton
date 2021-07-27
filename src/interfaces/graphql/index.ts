@@ -3,7 +3,7 @@ import { AuthChecker, buildSchema } from 'type-graphql'
 import { ApolloServer, PubSub } from 'apollo-server-express'
 import * as http from 'http'
 
-import graphqlLogger from 'utils/logger/graphqlLogger'
+import graphqlLogger from '@/utils/logger/graphqlLogger'
 import { UnauthorizedError } from 'entities/errors'
 
 const pubSub = new PubSub()
@@ -33,7 +33,7 @@ const initGraphQL = async (app: express.Application, server: http.Server) => {
       onConnect: () => console.log('Websocket connected'),
       onDisconnect: () => console.log('Websocket disconnected'),
     },
-    context: ({ req }): object | null => {
+    context: ({ req }): Record<string, unknown> | null => {
       // User metadata
       const token = req.headers.authorization
       if (!token) {
@@ -54,8 +54,6 @@ const initGraphQL = async (app: express.Application, server: http.Server) => {
 
   apolloServer.applyMiddleware({ app })
   apolloServer.installSubscriptionHandlers(server)
-
-  return app
 }
 
 export default initGraphQL

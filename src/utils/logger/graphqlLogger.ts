@@ -5,8 +5,8 @@ import { hostname } from 'os'
 
 import { version } from '~/package.json'
 import { ENVIRONMENT_NAME } from '~/config'
-import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from 'utils/auth'
-import { getStatusCodeFromError } from 'utils/helpers'
+import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from '@/utils/auth'
+import { getStatusCodeFromError } from '@/utils/helpers'
 
 interface LogFormat {
   '@timestamp': string

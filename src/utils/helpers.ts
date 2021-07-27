@@ -3,6 +3,7 @@ const getStatusCodeFromError = (error: { name: string }) => {
     case 'BadRequestError':
     case 'BadRequest':
     case 'SyntaxError':
+    case 'ParameterParseJsonError':
       return 400
     case 'Unauthorized':
       return 401
