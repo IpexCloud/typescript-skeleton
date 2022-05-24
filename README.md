@@ -48,7 +48,7 @@ npx typeorm migration:create -n {name-for-migration} --config "src/datasources/{
 ```
 2. Run migrations or revert
 ```sh
-npm run typeorm migration:run -- --config "src/model/{databse-name}/ormconfig.js"
+npm run typeorm migration:run -- --config "src/datasources/{databse-name}/ormconfig.js"
 ```
 
 

@@ -6,9 +6,9 @@ module.exports = {
   type: 'mysql',
   url: process.env.DATABASE_URL,
   migrationsTableName: 'migrations',
-  entities: ['.src/model/database1/entities/*.ts'],
-  migrations: ['./src/model/database1/migrations/*.ts'],
+  entities: ['.src/datasources/database1/entities/*.ts'],
+  migrations: ['./src/datasources/database1/migrations/*.ts'],
   cli: {
-    migrationsDir: 'src/model/database1/migrations/'
+    migrationsDir: 'src/datasources/database1/migrations/'
   }
 }

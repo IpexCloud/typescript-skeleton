@@ -19,20 +19,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "./", 
-    "plugins": [
-      {
-        "transform": "@zerollup/ts-transform-paths",
-        "exclude": ["*"]
-      }
-    ],   
+    "baseUrl": "./",
     "paths": {
         "@/*": ["./src/*"],
         "~/*": ["./*"],
         "entities/*": ["./src/entities/*"],
         "repositories/*": ["./src/repositories/*"],
         "services/*": ["./src/services/*"],
-        "datasources/*": ["src/datasources/*"],
+        "datasources/*": ["./src/datasources/*"],
         "interfaces/*": ["./src/interfaces/*"]
       }
     },
