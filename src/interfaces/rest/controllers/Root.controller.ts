@@ -3,12 +3,11 @@ import { OpenAPI } from 'routing-controllers-openapi'
 import { Response } from 'express'
 
 import { version } from '~/package.json'
-import { Databases } from '~/config/databases'
-import { checkMaintenance, checkDatabaseConnection } from '@/utils/health'
+import AppDataSource from 'datasources/database1'
+import { checkMaintenance, checkDataSource } from '@/utils/health'
 
-@OpenAPI({ tags: ['/'] })
 @JsonController()
-export class RootController {
+class RootController {
   @Get('/alive')
   @OpenAPI({ summary: 'Server alive status' })
   alive() {
@@ -23,14 +22,14 @@ export class RootController {
   @OpenAPI({ summary: 'Server health status' })
   async health(@Res() response: Response) {
     let statusCode = 200
-    const checks = (await Promise.all([checkMaintenance(), checkDatabaseConnection(Databases.database1)])).map(
-      check => {
-        if (check.statusCode === 503) {
-          statusCode = 503
-        }
-        return check
+    const checks = (await Promise.all([checkMaintenance(), checkDataSource(AppDataSource, 'database1')])).map(check => {
+      if (check.statusCode === 503) {
+        statusCode = 503
       }
-    )
+      return check
+    })
     return response.status(statusCode).json(checks)
   }
 }
+
+export { RootController }

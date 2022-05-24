@@ -1,7 +1,5 @@
 import { existsSync } from 'fs'
-import { getConnection } from 'typeorm'
-
-import { Databases } from '~/config/databases'
+import { DataSource } from 'typeorm'
 
 interface ResponseFormat {
   duration: number
@@ -29,11 +27,11 @@ const checkMaintenance = async (): Promise<ResponseFormat> => {
   return response
 }
 
-const checkDatabaseConnection = async (name: Databases): Promise<ResponseFormat> => {
+const checkDataSource = async (datasource: DataSource, name: string): Promise<ResponseFormat> => {
   const start = Date.now()
   const response = { ...DEFAULT_RESPONSE, name }
   try {
-    await getConnection(name).query('SHOW TABLES')
+    await datasource.query('SHOW TABLES')
   } catch (err) {
     response.statusCode = 503
     response.message = err.message || err
@@ -44,4 +42,4 @@ const checkDatabaseConnection = async (name: Databases): Promise<ResponseFormat>
   return response
 }
 
-export { checkMaintenance, checkDatabaseConnection }
+export { checkMaintenance, checkDataSource }

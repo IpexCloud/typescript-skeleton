@@ -2,13 +2,12 @@ import 'reflect-metadata'
 import * as express from 'express'
 import * as http from 'http'
 import { createTerminus } from '@godaddy/terminus'
-import { getConnection } from 'typeorm'
 import { config } from 'dotenv'
 
 config({ path: './env/.env' })
 import logger from '@/utils/logger/logger'
 import { PORT } from '~/config'
-import { initDbConnection, Databases } from '~/config/databases'
+import AppDataSource from 'datasources/database1'
 import initREST from 'interfaces/rest'
 import initGraphQL from 'interfaces/graphql'
 
@@ -18,7 +17,7 @@ import initGraphQL from 'interfaces/graphql'
     logger.info(`APP_STARTED`)
     const app: express.Application = express()
 
-    await initDbConnection(Databases.database1)
+    await AppDataSource.initialize()
 
     const server = http.createServer(app)
     initREST(app)
@@ -29,7 +28,7 @@ import initGraphQL from 'interfaces/graphql'
         logger.info('Server is starting cleanup')
         return Promise.all([
           // your clean logic, like closing database connections
-          getConnection(Databases.database1).close()
+          AppDataSource.destroy()
         ])
       }
     })

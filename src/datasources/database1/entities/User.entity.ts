@@ -3,19 +3,19 @@ import Order from './Order.entity'
 
 @Entity({ name: 'users' }) // same as table name
 class User {
-  @PrimaryColumn()
-  userId: number
+  @PrimaryColumn({ name: 'userId', type: 'int' })
+  id: number
 
-  @Column('varchar', { length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   firstName: string
 
-  @Column('varchar', { length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   lastName: string
 
-  @Column('varchar', { length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   address: string
 
-  @Column('varchar', { length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   city: string
 
   @OneToMany(() => Order, order => order.user)

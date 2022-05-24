@@ -32,7 +32,7 @@
         "entities/*": ["./src/entities/*"],
         "repositories/*": ["./src/repositories/*"],
         "services/*": ["./src/services/*"],
-        "model/*": ["./src/model/*"],
+        "datasources/*": ["src/datasources/*"],
         "interfaces/*": ["./src/interfaces/*"]
       }
     },

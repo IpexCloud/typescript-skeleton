@@ -1,25 +1,13 @@
-import { Connection, Repository, getConnection, EntityManager } from 'typeorm'
+import AppDataSource from 'datasources/database1'
+import * as DataSourceEntities from 'datasources/database1/entities'
 
-import { Databases } from '~/config/databases'
-import * as DatabaseEntities from 'model/database1/entities'
-
-export default class OrdersRepository {
-  private ordersRepository: Repository<DatabaseEntities.Order>
-  private connection: Connection | EntityManager
-
-  constructor(connection?: Connection | EntityManager) {
-    if (connection) {
-      this.connection = connection
-    } else {
-      this.connection = getConnection(Databases.database1)
-    }
-    this.ordersRepository = this.connection.getRepository(DatabaseEntities.Order)
-  }
-
+const OrdersRepository = AppDataSource.getRepository(DataSourceEntities.Order).extend({
   findUserOrders(userId: number) {
-    return this.ordersRepository.find({
+    return this.find({
       relations: ['user'],
-      where: { user: userId }
+      where: { user: { id: userId } }
     })
   }
-}
+})
+
+export default OrdersRepository

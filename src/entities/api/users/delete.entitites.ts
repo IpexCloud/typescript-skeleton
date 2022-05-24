@@ -1,10 +1,11 @@
-import { IsNumber } from 'class-validator'
+import { IsNotEmpty, IsNumber } from 'class-validator'
 import { Field } from 'type-graphql'
 
-class UserDeleteApiParams {
+class DeleteUserApiParams {
   @Field()
   @IsNumber()
+  @IsNotEmpty()
   id: number
 }
 
-export { UserDeleteApiParams }
+export { DeleteUserApiParams as Params }

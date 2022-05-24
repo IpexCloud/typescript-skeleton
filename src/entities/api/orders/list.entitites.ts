@@ -1,11 +1,12 @@
-import { IsNumber } from 'class-validator'
+import { IsNotEmpty, IsNumber } from 'class-validator'
 import { Field, InputType } from 'type-graphql'
 
 @InputType()
-class OrdersListApiParams {
+class OrderListApiParams {
   @Field()
   @IsNumber()
+  @IsNotEmpty()
   id: number
 }
 
-export { OrdersListApiParams }
+export { OrderListApiParams as Params }

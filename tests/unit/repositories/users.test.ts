@@ -1,14 +1,12 @@
-import { getConnection } from 'typeorm'
-
-import { initDbConnection, Databases } from '~/config/databases'
-import UsersRepository from '@/repositories/database1/users.repository'
+import AppDataSource from 'datasources/database1'
+import * as DataSourceEntities from 'datasources/database1/entities'
 
 describe('Users repository', () => {
   beforeAll(async () => {
-    await initDbConnection(Databases.database1)
+    await AppDataSource.initialize()
   })
 
-  const usersRepository = new UsersRepository()
+  const usersRepository = AppDataSource.getRepository(DataSourceEntities.User)
 
   test('Create new user', async () => {
     const newUser = {
@@ -24,7 +22,7 @@ describe('Users repository', () => {
   })
 
   afterAll(async () => {
-    await usersRepository.remove(5)
-    await getConnection(Databases.database1).close()
+    await usersRepository.delete(5)
+    await AppDataSource.destroy()
   })
 })

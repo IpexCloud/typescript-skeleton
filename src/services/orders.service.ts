@@ -1,9 +1,13 @@
 import OrdersRepository from 'repositories/database1/orders.repository'
+import * as OrderListApiEntities from 'entities/api/orders/list.entitites'
 
-const getUserOrders = async (userId: number) => {
-  const ordersRepository = new OrdersRepository()
-  const orders = await ordersRepository.findUserOrders(userId)
-  return orders
+class OrdersService {
+  private ordersRepository = OrdersRepository
+
+  async getList(input: OrderListApiEntities.Params) {
+    const orders = await this.ordersRepository.findUserOrders(input.id)
+    return orders
+  }
 }
 
-export { getUserOrders }
+export default OrdersService
