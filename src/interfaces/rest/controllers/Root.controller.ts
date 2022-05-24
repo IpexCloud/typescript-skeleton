@@ -15,7 +15,7 @@ export class RootController {
     return {
       status: 'OK',
       uptime: Math.ceil(process.uptime()),
-      version,
+      version
     }
   }
 
@@ -24,7 +24,7 @@ export class RootController {
   async health(@Res() response: Response) {
     let statusCode = 200
     const checks = (await Promise.all([checkMaintenance(), checkDatabaseConnection(Databases.database1)])).map(
-      (check) => {
+      check => {
         if (check.statusCode === 503) {
           statusCode = 503
         }

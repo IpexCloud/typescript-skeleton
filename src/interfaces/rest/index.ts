@@ -40,20 +40,20 @@ const initREST = (app: express.Application) => {
     cors: true,
     defaults: {
       nullResultCode: 404,
-      undefinedResultCode: 204,
+      undefinedResultCode: 204
     },
     validation: {
       whitelist: true,
-      forbidNonWhitelisted: true,
+      forbidNonWhitelisted: true
     },
-    middlewares: [CorrelationIdMiddleware, ErrorHandlerMiddleware],
+    middlewares: [CorrelationIdMiddleware, ErrorHandlerMiddleware]
   }
   useExpressServer(app, routingControllersOptions)
 
   // Generate documentation
   const schemas = validationMetadatasToSchemas({
     classTransformerMetadataStorage: defaultMetadataStorage,
-    refPointerPrefix: '#/components/schemas/',
+    refPointerPrefix: '#/components/schemas/'
   })
   const storage = getMetadataArgsStorage()
   const spec = routingControllersToSpec(storage, routingControllersOptions, {
@@ -62,19 +62,19 @@ const initREST = (app: express.Application) => {
       securitySchemes: {
         bearerAuth: {
           scheme: 'bearer',
-          type: 'http',
+          type: 'http'
         },
         basicAuth: {
           scheme: 'basic',
-          type: 'http',
-        },
-      },
+          type: 'http'
+        }
+      }
     },
     info: {
       title: name,
       description,
-      version,
-    },
+      version
+    }
   })
 
   // Use route for documentation

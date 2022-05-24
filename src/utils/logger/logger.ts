@@ -4,29 +4,30 @@ import { hostname } from 'os'
 import { version } from '~/package.json'
 import { ENVIRONMENT_NAME } from '~/config'
 
-const messageFormat = format.printf((data) => {
-  const { timestamp, level, message, ...meta } = data
-  const log = {
+const messageFormat = format.printf(log => {
+  const { timestamp, level, message, data, ...meta } = log
+  const resultLog = {
     '@timestamp': timestamp,
     severity: level,
     msg: message,
-    ...meta,
+    data: data ? JSON.stringify(data) : undefined,
+    ...meta
   }
-  return JSON.stringify(log)
+  return JSON.stringify(resultLog)
 })
 
 const logger = createLogger({
   transports: [
     new transports.Console({
-      format: format.combine(format.splat(), format.timestamp(), messageFormat),
-    }),
+      format: format.combine(format.splat(), format.timestamp(), messageFormat)
+    })
   ],
   defaultMeta: {
     host: hostname(),
     instanceId: hostname(),
     source: ENVIRONMENT_NAME,
-    '@version': version,
-  },
+    '@version': version
+  }
 })
 
 export default logger

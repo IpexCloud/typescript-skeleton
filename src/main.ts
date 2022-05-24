@@ -14,24 +14,30 @@ import initGraphQL from 'interfaces/graphql'
 
 // Start server, init db connections and interfaces
 ;(async () => {
-  const app: express.Application = express()
+  try {
+    logger.info(`APP_STARTED`)
+    const app: express.Application = express()
 
-  await initDbConnection(Databases.database1)
+    await initDbConnection(Databases.database1)
 
-  const server = http.createServer(app)
-  initREST(app)
-  await initGraphQL(app, server)
+    const server = http.createServer(app)
+    initREST(app)
+    await initGraphQL(app, server)
 
-  createTerminus(server, {
-    onShutdown: () => {
-      logger.info('Server is starting cleanup')
-      return Promise.all([
-        // your clean logic, like closing database connections
-        getConnection(Databases.database1).close(),
-      ])
-    },
-  })
+    createTerminus(server, {
+      onShutdown: () => {
+        logger.info('Server is starting cleanup')
+        return Promise.all([
+          // your clean logic, like closing database connections
+          getConnection(Databases.database1).close()
+        ])
+      }
+    })
 
-  await server.listen(PORT)
-  logger.info(`Server running on: http://localhost:${PORT}`)
+    await server.listen(PORT)
+    logger.info(`Server running on: http://localhost:${PORT}`)
+  } catch (error) {
+    logger.error(error.message, { data: error })
+    process.exit(1)
+  }
 })()

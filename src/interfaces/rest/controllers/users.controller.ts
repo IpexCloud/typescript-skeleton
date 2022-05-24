@@ -13,7 +13,7 @@ export class UsersController {
   @ResponseSchema(UserDetailApiInput, { isArray: true })
   @OpenAPI({
     description: 'Get list of users',
-    summary: 'Get list of users',
+    summary: 'Get list of users'
   })
   async getAll(): Promise<UserDetailApiInput[]> {
     const users = await getUsers()

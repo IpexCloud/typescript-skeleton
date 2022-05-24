@@ -31,7 +31,7 @@ interface LogFormat {
   qqlName: string
 }
 
-const requestFormat = format.printf((data) => {
+const requestFormat = format.printf(data => {
   const { meta, level, timestamp } = data
   const auth = meta.req.headers.authorization || null
   let userId: LogFormat['user'] = null
@@ -64,7 +64,7 @@ const requestFormat = format.printf((data) => {
     gqlOperation: meta.req.body.query.split(' ')[0],
     gqlRawQuery: meta.req.body.query,
     gqlVariables: JSON.stringify(meta.req.body.variables),
-    qqlName: meta.req.body.operationName, // TODO: parse raw graphql query and add '#' between operations
+    qqlName: meta.req.body.operationName // TODO: parse raw graphql query and add '#' between operations
   }
 
   if (meta.res.body.errors?.length) {
@@ -72,7 +72,7 @@ const requestFormat = format.printf((data) => {
       ...log,
       responsePayload: JSON.stringify(meta.res.body.errors),
       severity: 'error',
-      statusCode: getStatusCodeFromError(meta.res.body.errors[0]?.extensions?.exception),
+      statusCode: getStatusCodeFromError(meta.res.body.errors[0]?.extensions?.exception)
     }
   }
 
@@ -82,9 +82,9 @@ const requestFormat = format.printf((data) => {
 const loggerOptions: LoggerOptions = {
   transports: [
     new transports.Console({
-      format: format.combine(format.splat(), format.timestamp(), requestFormat),
-    }),
-  ],
+      format: format.combine(format.splat(), format.timestamp(), requestFormat)
+    })
+  ]
 }
 
 export default logger({
@@ -104,5 +104,5 @@ export default logger({
   meta: true,
   requestWhitelist: ['headers', 'query', 'body', 'method', 'url'],
   responseWhitelist: ['body', 'statusCode'],
-  winstonInstance: createLogger(loggerOptions),
+  winstonInstance: createLogger(loggerOptions)
 })

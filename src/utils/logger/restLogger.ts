@@ -28,7 +28,7 @@ interface LogFormat {
   responsePayload?: string | null
 }
 
-const requestFormat = format.printf((data) => {
+const requestFormat = format.printf(data => {
   const { meta, level, timestamp } = data
   const auth = meta.req.headers.authorization || null
   let userId: LogFormat['user'] = null
@@ -58,14 +58,14 @@ const requestFormat = format.printf((data) => {
     severity: level,
     source: ENVIRONMENT_NAME,
     statusCode: meta.res.statusCode,
-    user: userId,
+    user: userId
   }
 
   if (!(meta.res.statusCode >= 200 && meta.res.statusCode < 300)) {
     log = {
       ...log,
       requestPayload: JSON.stringify(meta.req.body) || null,
-      responsePayload: JSON.stringify(meta.res.body),
+      responsePayload: JSON.stringify(meta.res.body)
     }
   }
 
@@ -75,9 +75,9 @@ const requestFormat = format.printf((data) => {
 const loggerOptions: LoggerOptions = {
   transports: [
     new transports.Console({
-      format: format.combine(format.splat(), format.timestamp(), requestFormat),
-    }),
-  ],
+      format: format.combine(format.splat(), format.timestamp(), requestFormat)
+    })
+  ]
 }
 
 export default logger({
@@ -95,5 +95,5 @@ export default logger({
   meta: true,
   requestWhitelist: ['headers', 'query', 'body', 'method', 'url'],
   responseWhitelist: ['body', 'statusCode'],
-  winstonInstance: createLogger(loggerOptions),
+  winstonInstance: createLogger(loggerOptions)
 })

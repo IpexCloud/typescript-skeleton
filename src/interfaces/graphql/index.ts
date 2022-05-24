@@ -22,7 +22,7 @@ const initGraphQL = async (app: express.Application, server: http.Server) => {
   const schema = await buildSchema({
     authChecker,
     resolvers: [__dirname + '/resolvers/**/*.+(js|ts)'],
-    pubSub,
+    pubSub
   })
 
   const apolloServer = new ApolloServer({
@@ -31,7 +31,7 @@ const initGraphQL = async (app: express.Application, server: http.Server) => {
     subscriptions: {
       path: '/',
       onConnect: () => console.log('Websocket connected'),
-      onDisconnect: () => console.log('Websocket disconnected'),
+      onDisconnect: () => console.log('Websocket disconnected')
     },
     context: ({ req }): Record<string, unknown> | null => {
       // User metadata
@@ -45,11 +45,11 @@ const initGraphQL = async (app: express.Application, server: http.Server) => {
         user: {
           name: 'John Doe',
           customer: '12345',
-          roles: 'ADMIN',
-        },
+          roles: 'ADMIN'
+        }
       }
       return context
-    },
+    }
   })
 
   apolloServer.applyMiddleware({ app })

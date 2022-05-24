@@ -16,7 +16,7 @@ describe('Users repository', () => {
       firstName: 'John',
       lastName: 'Doe',
       address: 'Avenue St',
-      city: 'Brno',
+      city: 'Brno'
     }
     const user = await usersRepository.create(newUser)
 

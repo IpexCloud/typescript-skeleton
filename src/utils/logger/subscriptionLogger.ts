@@ -17,7 +17,7 @@ interface LogFormat {
   data: string
 }
 
-const messageFormat = format.printf((data) => {
+const messageFormat = format.printf(data => {
   const { timestamp, level, ...meta } = data
 
   const log: LogFormat = {
@@ -30,7 +30,7 @@ const messageFormat = format.printf((data) => {
     user: meta.context.id,
     gqlOperation: 'subscription',
     gqlName: meta.info.fieldName,
-    data: JSON.stringify(meta.root),
+    data: JSON.stringify(meta.root)
   }
 
   return JSON.stringify(log)
@@ -39,9 +39,9 @@ const messageFormat = format.printf((data) => {
 const logger = createLogger({
   transports: [
     new transports.Console({
-      format: format.combine(format.splat(), format.timestamp(), messageFormat),
-    }),
-  ],
+      format: format.combine(format.splat(), format.timestamp(), messageFormat)
+    })
+  ]
 })
 
 export default logger

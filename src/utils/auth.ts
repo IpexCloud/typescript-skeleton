@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken'
 enum AuthTypes {
   basicAuth = 'basicAuth',
   bearerToken = 'bearerToken',
-  unknown = 'unknown',
+  unknown = 'unknown'
 }
 
 const getAuthType = (auth: string | undefined | null): AuthTypes => {
@@ -43,7 +43,7 @@ const getBasicAuthMeta = (auth: string): BasicAuthMeta | null => {
     if (decodedCredentials.length === 2) {
       return {
         user: decodedCredentials[0],
-        password: decodedCredentials[1],
+        password: decodedCredentials[1]
       }
     } else {
       return null
