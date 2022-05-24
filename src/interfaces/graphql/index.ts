@@ -3,7 +3,7 @@ import { AuthChecker, buildSchema } from 'type-graphql'
 import { ApolloServer, PubSub } from 'apollo-server-express'
 import * as http from 'http'
 
-import graphqlLogger from '@/utils/logger/graphqlLogger'
+import graphqlLogger from 'utils/logger/graphqlLogger'
 import { UnauthorizedError } from 'entities/errors'
 
 const pubSub = new PubSub()

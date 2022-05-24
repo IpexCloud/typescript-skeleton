@@ -4,7 +4,7 @@ import { Response } from 'express'
 
 import { version } from '~/package.json'
 import AppDataSource from 'datasources/database1'
-import { checkMaintenance, checkDataSource } from '@/utils/health'
+import { checkMaintenance, checkDataSource } from 'utils/health'
 
 @JsonController()
 class RootController {

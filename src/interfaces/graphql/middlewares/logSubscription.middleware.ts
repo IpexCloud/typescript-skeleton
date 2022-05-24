@@ -1,6 +1,6 @@
 import { MiddlewareInterface, NextFn, ResolverData } from 'type-graphql'
 
-import subscriptionLogger from '@/utils/logger/subscriptionLogger'
+import subscriptionLogger from 'utils/logger/subscriptionLogger'
 
 class LogSubscription implements MiddlewareInterface {
   async use(resolverData: ResolverData, next: NextFn) {

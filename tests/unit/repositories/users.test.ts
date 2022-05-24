@@ -10,7 +10,6 @@ describe('Users repository', () => {
 
   test('Create new user', async () => {
     const newUser = {
-      userId: 5,
       firstName: 'John',
       lastName: 'Doe',
       address: 'Avenue St',

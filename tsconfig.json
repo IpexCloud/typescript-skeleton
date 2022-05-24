@@ -21,14 +21,15 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-        "@/*": ["./src/*"],
-        "~/*": ["./*"],
-        "entities/*": ["./src/entities/*"],
-        "repositories/*": ["./src/repositories/*"],
-        "services/*": ["./src/services/*"],
-        "datasources/*": ["./src/datasources/*"],
-        "interfaces/*": ["./src/interfaces/*"]
-      }
+      "~/*": ["./*"],
+      "src/*": ["./src/*"],
+      "entities/*": ["./src/entities/*"],
+      "repositories/*": ["./src/repositories/*"],
+      "services/*": ["./src/services/*"],
+      "datasources/*": ["./src/datasources/*"],
+      "interfaces/*": ["./src/interfaces/*"],
+      "utils/*": ["./src/utils/*"]
+    }
     },
   "exclude": ["node_modules", "build", "package.json", "package-lock.json"]
 }

@@ -5,7 +5,7 @@ import { hostname } from 'os'
 
 import { version } from '~/package.json'
 import { ENVIRONMENT_NAME, GRAPHQL_ENDPOINT } from '~/config'
-import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from '@/utils/auth'
+import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from 'utils/auth'
 
 interface LogFormat {
   '@timestamp': string

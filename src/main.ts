@@ -5,7 +5,7 @@ import { createTerminus } from '@godaddy/terminus'
 import { config } from 'dotenv'
 
 config({ path: './env/.env' })
-import logger from '@/utils/logger/logger'
+import logger from 'utils/logger/logger'
 import { PORT } from '~/config'
 import AppDataSource from 'datasources/database1'
 import initREST from 'interfaces/rest'
@@ -26,10 +26,7 @@ import initGraphQL from 'interfaces/graphql'
     createTerminus(server, {
       onShutdown: () => {
         logger.info('Server is starting cleanup')
-        return Promise.all([
-          // your clean logic, like closing database connections
-          AppDataSource.destroy()
-        ])
+        return Promise.all([AppDataSource.destroy()])
       }
     })
 

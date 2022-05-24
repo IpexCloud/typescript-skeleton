@@ -7,7 +7,7 @@ import { resolve } from 'path'
 import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
-import restLogger from '@/utils/logger/restLogger'
+import restLogger from 'utils/logger/restLogger'
 import CorrelationIdMiddleware from './middlewares/correlationId.middleware'
 import ErrorHandlerMiddleware from './middlewares/errorHandler.middleware'
 import { version, name, description } from '~/package.json'

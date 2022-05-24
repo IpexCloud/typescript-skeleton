@@ -4,7 +4,7 @@ import { Request } from 'express'
 
 import { version } from '~/package.json'
 import { ENVIRONMENT_NAME } from '~/config'
-import { ValidatorError } from '@/types'
+import { ValidatorError } from 'src/types'
 
 interface ErrorLogFormat {
   '@timestamp': string

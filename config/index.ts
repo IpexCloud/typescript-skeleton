@@ -1,4 +1,4 @@
-import { loadEnv } from '@/utils/helpers'
+import { loadEnv } from 'utils/helpers'
 
 export const PORT = process.env.PORT || '3000'
 export const DATABASE_URL = loadEnv('DATABASE_URL')

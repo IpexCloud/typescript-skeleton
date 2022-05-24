@@ -2,9 +2,9 @@ import { Middleware, ExpressErrorMiddlewareInterface } from 'routing-controllers
 import { Response, Request } from 'express'
 import { ValidationError } from 'class-validator'
 
-import logRestError from '@/utils/logger/restErrorLogger'
-import { getStatusCodeFromError } from '@/utils/helpers'
-import { ValidatorError } from '@/types'
+import logRestError from 'utils/logger/restErrorLogger'
+import { getStatusCodeFromError } from 'utils/helpers'
+import { ValidatorError } from 'src/types'
 
 type ErrorResponse = {
   message: string
