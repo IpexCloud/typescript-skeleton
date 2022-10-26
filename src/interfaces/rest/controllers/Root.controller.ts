@@ -3,7 +3,7 @@ import { OpenAPI } from 'routing-controllers-openapi'
 import { Response } from 'express'
 
 import { version } from '~/package.json'
-import AppDataSource from 'datasources/database1'
+import AppDataSource from 'datasources/database'
 import { checkMaintenance, checkDataSource } from 'utils/health'
 
 @JsonController()
@@ -22,7 +22,7 @@ class RootController {
   @OpenAPI({ summary: 'Server health status' })
   async health(@Res() response: Response) {
     let statusCode = 200
-    const checks = (await Promise.all([checkMaintenance(), checkDataSource(AppDataSource, 'database1')])).map(check => {
+    const checks = (await Promise.all([checkMaintenance(), checkDataSource(AppDataSource, 'database')])).map(check => {
       if (check.statusCode === 503) {
         statusCode = 503
       }

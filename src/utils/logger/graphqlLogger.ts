@@ -4,7 +4,7 @@ import { logger } from 'express-winston'
 import { hostname } from 'os'
 
 import { version } from '~/package.json'
-import { ENVIRONMENT_NAME } from '~/config'
+import env from '~/config'
 import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from 'utils/auth'
 import { getStatusCodeFromError } from 'utils/helpers'
 
@@ -58,7 +58,7 @@ const requestFormat = format.printf(data => {
     responseTime: meta.responseTime,
     route: meta.req.url,
     severity: level,
-    source: ENVIRONMENT_NAME,
+    source: env.logging.source,
     statusCode: meta.res.statusCode,
     user: userId,
     gqlOperation: meta.req.body.query.split(' ')[0],
@@ -80,6 +80,7 @@ const requestFormat = format.printf(data => {
 })
 
 const loggerOptions: LoggerOptions = {
+  silent: env.logging.silent,
   transports: [
     new transports.Console({
       format: format.combine(format.splat(), format.timestamp(), requestFormat)

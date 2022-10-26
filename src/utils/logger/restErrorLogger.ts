@@ -3,7 +3,7 @@ import { hostname } from 'os'
 import { Request } from 'express'
 
 import { version } from '~/package.json'
-import { ENVIRONMENT_NAME } from '~/config'
+import env from '~/config'
 import { ValidatorError } from 'src/types'
 
 interface ErrorLogFormat {
@@ -20,6 +20,7 @@ interface ErrorLogFormat {
 }
 
 const logger = createLogger({
+  silent: env.logging.silent,
   transports: [
     new transports.Console({
       format: format.printf(data => data.message)
@@ -40,7 +41,7 @@ const logRestError = (error: ValidatorError | Error, request: Request) => {
     instanceId: hostname(),
     msg: error.message,
     severity: 'error',
-    source: ENVIRONMENT_NAME,
+    source: env.logging.source,
     stack: error.stack
   }
 

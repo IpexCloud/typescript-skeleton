@@ -3,3 +3,4 @@ coverage/
 build/
 env/*
 !env/.env.sample
+!env/env.schema.ts

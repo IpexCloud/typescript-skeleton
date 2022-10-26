@@ -1,4 +1,4 @@
-import OrdersRepository from 'repositories/database1/orders.repository'
+import OrdersRepository from 'repositories/database/orders.repository'
 import * as OrderListApiEntities from 'entities/api/orders/list.entitites'
 
 class OrdersService {

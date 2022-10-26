@@ -1,12 +1,12 @@
-import AppDataSource from 'datasources/database1'
-import * as DataSourceEntities from 'datasources/database1/entities'
+import AppDataSource from 'datasources/database'
+import { User } from 'datasources/database/entities'
 
 describe('Users repository', () => {
   beforeAll(async () => {
     await AppDataSource.initialize()
   })
 
-  const usersRepository = AppDataSource.getRepository(DataSourceEntities.User)
+  const usersRepository = AppDataSource.getRepository<User>('User')
 
   test('Create new user', async () => {
     const newUser = {

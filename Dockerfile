@@ -1,8 +1,10 @@
-FROM node:12.14.1-buster
+FROM node:16.18.0-bullseye-slim
 
 WORKDIR /app
 
 COPY package*.json ./
+
+ENV NODE_ENV production
 
 RUN npm i 
 

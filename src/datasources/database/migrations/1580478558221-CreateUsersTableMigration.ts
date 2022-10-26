@@ -13,7 +13,7 @@ class CreateUsersTableMigration1580478558221 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE users`)
+    await queryRunner.query('DROP TABLE users')
   }
 }
 

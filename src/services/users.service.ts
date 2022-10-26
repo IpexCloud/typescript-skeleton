@@ -1,13 +1,13 @@
 import { NotFoundError, ConflictError } from 'entities/errors'
-import AppDataSource from 'datasources/database1'
+import AppDataSource from '~/src/datasources/database'
 
-import * as DataSourceEntities from 'datasources/database1/entities'
+import * as DataSourceEntities from '~/src/datasources/database/entities'
 import * as UserDetailEntities from 'entities/api/users/detail.entities'
 import * as CreateUserEntities from 'entities/api/users/create.entities'
 import * as DeleteUserEntities from 'entities/api/users/delete.entitites'
 
 class UsersService {
-  usersRepository = AppDataSource.getRepository(DataSourceEntities.User)
+  usersRepository = AppDataSource.getRepository<DataSourceEntities.User>('User')
 
   async getList(): Promise<UserDetailEntities.Response[]> {
     const users = await this.usersRepository.find()

@@ -1,13 +1,14 @@
-import { Authorized, JsonController, Params, Body, Get, Post, Delete } from 'routing-controllers'
+import { JsonController, Params, Body, Get, Post, Delete, UseBefore } from 'routing-controllers'
 import { ResponseSchema, OpenAPI } from 'routing-controllers-openapi'
 
 import UsersService from 'services/users.service'
 import * as UserDetailEntities from 'entities/api/users/detail.entities'
 import * as CreateUserEntities from 'entities/api/users/create.entities'
 import * as DeleteUserEntities from 'entities/api/users/delete.entitites'
+import BearerTokenAuthMiddleware from 'interfaces/rest/middlewares/bearer-token-auth.middleware'
 
-@Authorized()
-@OpenAPI({ security: [{ bearerAuth: [], basicAuth: [] }] })
+@UseBefore(BearerTokenAuthMiddleware)
+@OpenAPI({ security: [{ bearerAuth: [] }] })
 @JsonController('/users')
 class UsersController {
   @Get()

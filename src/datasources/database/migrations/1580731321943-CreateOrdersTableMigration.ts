@@ -12,7 +12,7 @@ class CreateOrdersTableMigration1580731321943 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE IF EXISTS orders`)
+    await queryRunner.query('DROP TABLE IF EXISTS orders')
   }
 }
 

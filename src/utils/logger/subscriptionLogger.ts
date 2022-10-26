@@ -2,7 +2,7 @@ import { createLogger, format, transports } from 'winston'
 import { hostname } from 'os'
 
 import { version } from '~/package.json'
-import { ENVIRONMENT_NAME } from '~/config'
+import env from '~/config'
 
 interface LogFormat {
   '@timestamp': string
@@ -26,7 +26,7 @@ const messageFormat = format.printf(data => {
     host: hostname(),
     instanceId: hostname(),
     severity: level,
-    source: ENVIRONMENT_NAME,
+    source: env.logging.source,
     user: meta.context.id,
     gqlOperation: 'subscription',
     gqlName: meta.info.fieldName,
@@ -37,6 +37,7 @@ const messageFormat = format.printf(data => {
 })
 
 const logger = createLogger({
+  silent: env.logging.silent,
   transports: [
     new transports.Console({
       format: format.combine(format.splat(), format.timestamp(), messageFormat)

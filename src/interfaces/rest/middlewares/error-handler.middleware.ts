@@ -12,7 +12,7 @@ type ErrorResponse = {
 }
 
 @Middleware({ type: 'after' })
-export default class ErrorHandler implements ExpressErrorMiddlewareInterface {
+class ErrorHandler implements ExpressErrorMiddlewareInterface {
   error(error: ValidatorError | Error, request: Request, response: Response) {
     const errorResponse: ErrorResponse = {
       message: error.message
@@ -29,3 +29,5 @@ export default class ErrorHandler implements ExpressErrorMiddlewareInterface {
     response.status(statusCode).json(errorResponse)
   }
 }
+
+export default ErrorHandler

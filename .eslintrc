@@ -39,12 +39,14 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "object-curly-spacing": ["error", "always"],
     "allowMultiplePropertiesPerLine": 0,
     "prettier/prettier": ["error"],
     "no-mixed-spaces-and-tabs": 2,
     "sort-vars": 2,
-    "curly": ["error", "all"]
+    "curly": ["error", "all"],
+    "quotes": ["error", "single", { "avoidEscape": true }]
   },
   "extends": [
     "prettier",

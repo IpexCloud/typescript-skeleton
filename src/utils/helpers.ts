@@ -1,3 +1,5 @@
+import { IncomingHttpHeaders } from 'http'
+
 const getStatusCodeFromError = (error: { name: string }) => {
   switch (error.name) {
     case 'BadRequestError':
@@ -21,13 +23,9 @@ const getStatusCodeFromError = (error: { name: string }) => {
   }
 }
 
-const loadEnv = (name: string): string => {
-  const variable = process.env[name]
-  if (variable === undefined) {
-    console.log('Missing required env variable: ' + name)
-    process.exit(1)
-  }
-  return variable
+const getCorrelationId = (headers: IncomingHttpHeaders = {}) => {
+  const header = headers['x-correlation-id']
+  return header && Array.isArray(header) ? header.pop() : header
 }
 
-export { getStatusCodeFromError, loadEnv }
+export { getStatusCodeFromError, getCorrelationId }

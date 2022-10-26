@@ -4,7 +4,7 @@ import { logger } from 'express-winston'
 import { hostname } from 'os'
 
 import { version } from '~/package.json'
-import { ENVIRONMENT_NAME, GRAPHQL_ENDPOINT } from '~/config'
+import env from '~/config'
 import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from 'utils/auth'
 
 interface LogFormat {
@@ -56,7 +56,7 @@ const requestFormat = format.printf(data => {
     responseTime: meta.responseTime,
     route: meta.req.url,
     severity: level,
-    source: ENVIRONMENT_NAME,
+    source: env.logging.source,
     statusCode: meta.res.statusCode,
     user: userId
   }
@@ -73,6 +73,7 @@ const requestFormat = format.printf(data => {
 })
 
 const loggerOptions: LoggerOptions = {
+  silent: env.logging.silent,
   transports: [
     new transports.Console({
       format: format.combine(format.splat(), format.timestamp(), requestFormat)
@@ -91,7 +92,7 @@ export default logger({
     }
     return false
   },
-  ignoredRoutes: ['/health', '/alive', '/', GRAPHQL_ENDPOINT],
+  ignoredRoutes: ['/health', '/alive', '/', env.graphql.endpoint],
   meta: true,
   requestWhitelist: ['headers', 'query', 'body', 'method', 'url'],
   responseWhitelist: ['body', 'statusCode'],

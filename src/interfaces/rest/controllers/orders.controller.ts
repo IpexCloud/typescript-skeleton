@@ -1,10 +1,9 @@
-import { Authorized, JsonController, Params, Get } from 'routing-controllers'
+import { JsonController, Params, Get } from 'routing-controllers'
 import { OpenAPI } from 'routing-controllers-openapi'
 
 import * as OrderListApiEntities from 'entities/api/orders/list.entitites'
 import OrdersService from 'services/orders.service'
 
-@Authorized()
 @OpenAPI({ security: [{ bearerAuth: [] }], tags: ['Orders'] })
 @JsonController('/orders')
 class OrdersController {

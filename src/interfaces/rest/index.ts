@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { defaultMetadataStorage } = require('class-transformer/cjs/storage')
-import { useExpressServer, getMetadataArgsStorage, Action } from 'routing-controllers'
+import { useExpressServer, getMetadataArgsStorage } from 'routing-controllers'
 import { routingControllersToSpec } from 'routing-controllers-openapi'
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import { resolve } from 'path'
@@ -8,24 +8,9 @@ import * as swaggerUi from 'swagger-ui-express'
 import * as express from 'express'
 
 import restLogger from 'utils/logger/restLogger'
-import CorrelationIdMiddleware from './middlewares/correlationId.middleware'
-import ErrorHandlerMiddleware from './middlewares/errorHandler.middleware'
+import CorrelationIdMiddleware from './middlewares/correlation-id.middleware'
+import ErrorHandlerMiddleware from './middlewares/error-handler.middleware'
 import { version, name, description } from '~/package.json'
-import { UnauthorizedError } from 'entities/errors'
-
-const authorizationChecker = (action: Action, roles: string[]): boolean => {
-  // here you can use request/response objects from action
-  // also if decorator defines roles it needs to access the action
-  // you can use them to provide granular access check
-  // checker must return either boolean (true or false)
-  // either promise that resolves a boolean value
-  const token = action.request.headers.authorization || ''
-  if (!token || roles.includes('unknownRole')) {
-    throw new UnauthorizedError()
-  }
-
-  return true
-}
 
 const initREST = (app: express.Application) => {
   // Register logging middleware for REST
@@ -34,7 +19,6 @@ const initREST = (app: express.Application) => {
   app.use(express.urlencoded({ extended: true }))
 
   const routingControllersOptions = {
-    authorizationChecker,
     controllers: [resolve(__dirname, './controllers/**/*.+(js|ts)')],
     defaultErrorHandler: false,
     cors: true,
