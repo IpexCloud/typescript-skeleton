@@ -5,7 +5,7 @@ import { hostname } from 'os'
 
 import { version } from '~/package.json'
 import env from '~/config'
-import { getAuthType, getBasicAuthMeta, getBearerAuthMeta } from 'utils/auth'
+import { getAuthorizationType, getCredentialsFromBasicAuth, getJwtPayload } from 'utils/auth/helpers'
 
 interface LogFormat {
   '@timestamp': string
@@ -32,13 +32,13 @@ const requestFormat = format.printf(data => {
   const { meta, level, timestamp } = data
   const auth = meta.req.headers.authorization || null
   let userId: LogFormat['user'] = null
-  const authType = getAuthType(auth)
+  const authType = getAuthorizationType(auth)
 
   if (authType === 'basicAuth') {
-    const credentials = getBasicAuthMeta(auth)
-    userId = credentials ? credentials.user : null
+    const credentials = getCredentialsFromBasicAuth(auth)
+    userId = credentials ? credentials.username : null
   } else if (authType === 'bearerToken') {
-    const tokenPayload = getBearerAuthMeta(auth)
+    const tokenPayload = getJwtPayload(auth)
     userId = tokenPayload?.sub || null
   }
 

@@ -7,12 +7,13 @@ import { loadConfig } from '~/config/load'
 loadConfig()
 
 import logger from 'utils/logger/logger'
-import env from '~/config'
 import AppDataSource from 'datasources/database'
 import initREST from 'interfaces/rest'
 import initGraphQL from 'interfaces/graphql'
+import env from '~/config'
 import { initCache } from '~/config/cache'
 import { initAuthChecker } from 'utils/auth/auth.checker'
+import { BearerTokenAuthStrategy } from 'utils/auth/bearer-token-auth.strategy'
 
 // Start server, init db connections and interfaces
 ;(async () => {
@@ -22,7 +23,8 @@ import { initAuthChecker } from 'utils/auth/auth.checker'
 
     await AppDataSource.initialize()
     const cache = await initCache()
-    initAuthChecker(cache)
+    const authChecker = initAuthChecker()
+    authChecker.use('bearerToken', new BearerTokenAuthStrategy(cache))
 
     const server = http.createServer(app)
     initREST(app)

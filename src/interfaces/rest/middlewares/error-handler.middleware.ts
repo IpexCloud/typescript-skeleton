@@ -22,7 +22,6 @@ class ErrorHandler implements ExpressErrorMiddlewareInterface {
       errorResponse.errors = error.errors
     }
 
-    // log error to stdout
     logRestError(error, request)
 
     const statusCode = getStatusCodeFromError(error)

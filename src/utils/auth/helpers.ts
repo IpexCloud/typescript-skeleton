@@ -1,11 +1,18 @@
 import * as jwt from 'jsonwebtoken'
 import * as jose from 'jose'
+import axios from 'axios'
 
 import env from '~/config'
 
 const JWKS = jose.createRemoteJWKSet(env.platformAuth.url)
 
-import type { AuthorizationType, BasicAuthCredentials, PlatformJwtPayload } from 'utils/auth/types'
+import type {
+  AuthorizationType,
+  BasicAuthCredentials,
+  PlatformJwtPayload,
+  User,
+  UserDetailResponse
+} from 'utils/auth/types'
 
 const getAuthorizationType = (auth: string | undefined | null): AuthorizationType | undefined => {
   if (!auth || typeof auth !== 'string') {
@@ -91,4 +98,42 @@ const isPastExpiration = (exp?: number) => {
   return false
 }
 
-export { getAuthorizationType, getCredentialsFromBasicAuth, getJwtPayload, isPastExpiration, verifyToken }
+const transformUserDetailResponse = (response: UserDetailResponse): User => {
+  const pbxService = response.services.find(service => service.type === 'pbx')
+  const pbx = pbxService && {
+    id: pbxService.properties!.pbxId as number,
+    hostname: pbxService.properties.hostname as string,
+    version: pbxService.properties.version as string,
+    configDatabase: { name: `ipbxdb_${pbxService.properties.pbxId}`, host: pbxService.properties.dbHost as string },
+    dataDatabase: { name: `pbxdata_${pbxService.properties.pbxId}`, host: pbxService.properties.dbDataHost as string }
+  }
+
+  return {
+    id: response.id,
+    firstName: response.firstName,
+    lastName: response.lastName,
+    email: response.email,
+    customer: { id: response.customer.id },
+    pbx
+  }
+}
+
+const fetchUserDetail = async ({ token, correlationId }: { token: string; correlationId?: string }): Promise<User> => {
+  const response = await axios.request<UserDetailResponse>({
+    baseURL: env.api.central,
+    timeout: 10000,
+    method: 'get',
+    url: '/v1/users/me',
+    headers: { authorization: token, 'x-correlation-id': correlationId }
+  })
+  return transformUserDetailResponse(response.data)
+}
+
+export {
+  getAuthorizationType,
+  getCredentialsFromBasicAuth,
+  getJwtPayload,
+  isPastExpiration,
+  verifyToken,
+  fetchUserDetail
+}

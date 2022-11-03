@@ -15,6 +15,8 @@ export interface PlatformJwtPayload extends jwt.JwtPayload {
   permissions: string[]
 }
 
+export type AuthenticationInput = { authorization?: string; correlationId?: string }
+
 export type AuthenticationResult = SuccessAuthenticationResult | FailedAuthenticationResult
 
 interface SuccessAuthenticationResult {
@@ -55,4 +57,8 @@ export interface User {
     configDatabase: { name: string; host: string }
     dataDatabase: { name: string; host: string }
   }
+}
+
+export abstract class Strategy {
+  abstract authenticate(input: AuthenticationInput): Promise<AuthenticationResult>
 }
