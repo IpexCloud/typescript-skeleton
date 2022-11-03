@@ -1,13 +1,11 @@
-FROM node:16.18.0-bullseye-slim
+FROM node:16.14.0-bullseye-slim
 
 WORKDIR /app
 
-COPY package*.json ./
-
-ENV NODE_ENV production
-
-RUN npm i 
-
 COPY . .
 
-CMD ["npm", "start"]
+RUN npm install
+
+RUN npm prune --production
+
+CMD ["dumb init" , "node" , "./build/src/main.js"]
